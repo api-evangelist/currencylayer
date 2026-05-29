@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-structure.org/draft-00/schema",
+  "name": "CurrencylayerChangeResponse",
+  "description": "JSON Structure for the /change envelope: per-pair start/end rates plus absolute and percentage change.",
+  "type": "object",
+  "properties": {
+    "success": { "type": "boolean" },
+    "change": { "type": "boolean" },
+    "start_date": { "type": "string", "x-format": "date" },
+    "end_date": { "type": "string", "x-format": "date" },
+    "source": { "type": "string", "x-format": "iso4217" },
+    "quotes": {
+      "type": "map",
+      "values": {
+        "type": "object",
+        "properties": {
+          "start_rate": { "type": "double" },
+          "end_rate": { "type": "double" },
+          "change": { "type": "double" },
+          "change_pct": { "type": "double" }
+        }
+      }
+    }
+  },
+  "required": ["success", "change", "start_date", "end_date", "source", "quotes"]
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/currencylayer/json-schema/currencylayer-change-schema.json",
+  "title": "Currencylayer Change Response",
+  "description": "Envelope returned by /change containing start rate, end rate, absolute change, and percentage change for each requested currency.",
+  "type": "object",
+  "required": ["success", "change", "start_date", "end_date", "source", "quotes"],
+  "properties": {
+    "success": { "type": "boolean" },
+    "terms": { "type": "string", "format": "uri" },
+    "privacy": { "type": "string", "format": "uri" },
+    "change": { "type": "boolean" },
+    "start_date": { "type": "string", "format": "date" },
+    "end_date": { "type": "string", "format": "date" },
+    "source": { "type": "string", "pattern": "^[A-Z]{3}$" },
+    "quotes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "start_rate": { "type": "number" },
+          "end_rate": { "type": "number" },
+          "change": { "type": "number" },
+          "change_pct": { "type": "number" }
+        }
+      }
+    }
+  }
+}

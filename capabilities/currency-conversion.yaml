@@ -1,0 +1,40 @@
+apiVersion: capability.naftiko.dev/v1alpha1
+kind: Capability
+metadata:
+  name: currency-conversion
+  provider: currencylayer
+  description: |
+    Convert an arbitrary monetary amount from one currency to another using the
+    Currencylayer real-time exchange rate, with optional fallback to a historical
+    date or to deriving the rate locally from `/live` quotes.
+spec:
+  uses:
+    - sharedCapability: currencylayer-shared
+      operations: [convertCurrency, getLive, listCurrencies]
+  preconditions:
+    - description: Caller subscription must include the /convert endpoint (Basic plan or above).
+  workflow:
+    - step: validateSymbols
+      operation: listCurrencies
+      purpose: Confirm both `from` and `to` ISO 4217 codes are recognized.
+    - step: convertAmount
+      operation: convertCurrency
+      parameters:
+        from: "{{ input.from }}"
+        to: "{{ input.to }}"
+        amount: "{{ input.amount }}"
+        date: "{{ input.date | optional }}"
+    - step: fallbackLiveRate
+      when: convertAmount.error
+      operation: getLive
+      purpose: |
+        If /convert is unavailable (plan downgrade, transient failure), fall back to
+        deriving a conversion locally from /live quotes anchored on the source currency.
+  outputs:
+    rate: "{{ convertAmount.info.quote }}"
+    convertedAmount: "{{ convertAmount.result }}"
+    rateTimestamp: "{{ convertAmount.info.timestamp }}"
+    historical: "{{ convertAmount.historical }}"
+  governance:
+    minPlan: Basic
+    httpsRequired: true

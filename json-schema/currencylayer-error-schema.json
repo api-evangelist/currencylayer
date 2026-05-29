@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/currencylayer/json-schema/currencylayer-error-schema.json",
+  "title": "Currencylayer Error Response",
+  "description": "Standard Currencylayer error envelope returned on 4xx responses.",
+  "type": "object",
+  "required": ["success", "error"],
+  "properties": {
+    "success": { "type": "boolean", "const": false },
+    "error": {
+      "type": "object",
+      "required": ["code", "type", "info"],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "description": "Currencylayer error code (101, 103, 104, 105, 106, 404)."
+        },
+        "type": {
+          "type": "string",
+          "description": "Machine-readable error type slug (e.g. invalid_access_key, monthly_usage_limit_reached)."
+        },
+        "info": {
+          "type": "string",
+          "description": "Human-readable explanation suitable for surfacing to operators."
+        }
+      }
+    }
+  }
+}

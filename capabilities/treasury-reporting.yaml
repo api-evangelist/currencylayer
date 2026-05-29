@@ -1,0 +1,45 @@
+apiVersion: capability.naftiko.dev/v1alpha1
+kind: Capability
+metadata:
+  name: treasury-reporting
+  provider: currencylayer
+  description: |
+    Generate a treasury-style daily FX exposure report: pull a window of daily
+    rates for the reporting period via /timeframe, summarize per-currency
+    change via /change, and publish a normalized report ready for downstream
+    accounting systems.
+spec:
+  uses:
+    - sharedCapability: currencylayer-shared
+      operations: [getTimeFrame, getChange, listCurrencies]
+  preconditions:
+    - description: Caller subscription must include /timeframe (Enterprise) and /change (Enterprise Plus).
+  workflow:
+    - step: discoverSymbols
+      operation: listCurrencies
+      purpose: Materialize the supported symbol set used to validate report inputs.
+    - step: pullDailyRates
+      operation: getTimeFrame
+      parameters:
+        start_date: "{{ input.start_date }}"
+        end_date: "{{ input.end_date }}"
+        source: "{{ input.source | default: 'USD' }}"
+        currencies: "{{ input.currencies }}"
+    - step: summarizeChange
+      operation: getChange
+      parameters:
+        start_date: "{{ input.start_date }}"
+        end_date: "{{ input.end_date }}"
+        source: "{{ input.source | default: 'USD' }}"
+        currencies: "{{ input.currencies }}"
+  outputs:
+    dailyQuotes: "{{ pullDailyRates.quotes }}"
+    change: "{{ summarizeChange.quotes }}"
+    reportingWindow:
+      start: "{{ input.start_date }}"
+      end: "{{ input.end_date }}"
+      source: "{{ input.source | default: 'USD' }}"
+  governance:
+    minPlan: "Enterprise Plus"
+    httpsRequired: true
+    cadence: Daily

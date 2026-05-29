@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.apilayer.com/currency_data/live?source=USD&currencies=AUD,CHF,EUR,GBP,PLN",
+    "headers": {
+      "apikey": "YOUR_API_KEY"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "terms": "https://currencylayer.com/terms",
+      "privacy": "https://currencylayer.com/privacy",
+      "timestamp": 1430068515,
+      "source": "USD",
+      "quotes": {
+        "USDAUD": 1.278384,
+        "USDCHF": 0.953975,
+        "USDEUR": 0.919677,
+        "USDGBP": 0.658443,
+        "USDPLN": 3.713873
+      }
+    }
+  }
+}

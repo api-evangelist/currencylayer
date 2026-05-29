@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/draft-00/schema",
+  "name": "CurrencylayerTimeFrameResponse",
+  "description": "JSON Structure for the /timeframe envelope: map of date to map of pair to rate.",
+  "type": "object",
+  "properties": {
+    "success": { "type": "boolean" },
+    "timeframe": { "type": "boolean" },
+    "start_date": { "type": "string", "x-format": "date" },
+    "end_date": { "type": "string", "x-format": "date" },
+    "source": { "type": "string", "x-format": "iso4217" },
+    "quotes": {
+      "type": "map",
+      "values": {
+        "type": "map",
+        "values": { "type": "double" }
+      }
+    }
+  },
+  "required": ["success", "timeframe", "start_date", "end_date", "source", "quotes"]
+}

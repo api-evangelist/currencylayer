@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/currencylayer/json-schema/currencylayer-quotes-schema.json",
+  "title": "Currencylayer Quotes Response",
+  "description": "Envelope returned by /live and /historical containing real-time or historical exchange rates keyed by concatenated source+target codes (e.g. USDEUR).",
+  "type": "object",
+  "required": ["success", "timestamp", "source", "quotes"],
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "description": "Indicates whether the request succeeded."
+    },
+    "terms": {
+      "type": "string",
+      "format": "uri"
+    },
+    "privacy": {
+      "type": "string",
+      "format": "uri"
+    },
+    "timestamp": {
+      "type": "integer",
+      "description": "Unix timestamp (seconds) when the rates were published."
+    },
+    "source": {
+      "type": "string",
+      "description": "ISO 4217 source/base currency code anchoring the rate set.",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "historical": {
+      "type": "boolean",
+      "description": "Present and true when the response represents historical rates."
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the rates apply to (YYYY-MM-DD), present for /historical."
+    },
+    "quotes": {
+      "type": "object",
+      "description": "Map of concatenated source+target ISO 4217 codes (e.g. USDEUR) to the exchange rate.",
+      "additionalProperties": {
+        "type": "number"
+      }
+    }
+  }
+}

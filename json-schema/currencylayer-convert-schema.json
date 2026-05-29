@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/currencylayer/json-schema/currencylayer-convert-schema.json",
+  "title": "Currencylayer Convert Response",
+  "description": "Envelope returned by /convert for an on-demand currency amount conversion.",
+  "type": "object",
+  "required": ["success", "query", "info", "result"],
+  "properties": {
+    "success": { "type": "boolean" },
+    "terms": { "type": "string", "format": "uri" },
+    "privacy": { "type": "string", "format": "uri" },
+    "query": {
+      "type": "object",
+      "required": ["from", "to", "amount"],
+      "properties": {
+        "from": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "to": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "amount": { "type": "number" }
+      }
+    },
+    "info": {
+      "type": "object",
+      "required": ["timestamp", "quote"],
+      "properties": {
+        "timestamp": { "type": "integer" },
+        "quote": { "type": "number" }
+      }
+    },
+    "historical": { "type": "boolean" },
+    "date": { "type": "string", "format": "date" },
+    "result": { "type": "number" }
+  }
+}

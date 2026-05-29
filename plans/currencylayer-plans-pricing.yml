@@ -1,0 +1,238 @@
+name: Currencylayer Plans and Pricing
+description: |
+  Commercial plan surface for the Currencylayer foreign exchange API, captured
+  against the API Commons Plans 0.1 specification. Pricing and quotas reflect
+  the current currencylayer.com/product listing on the APILayer marketplace.
+url: https://raw.githubusercontent.com/api-evangelist/currencylayer/main/plans/currencylayer-plans-pricing.yml
+created: '2026-05-29'
+modified: '2026-05-29'
+specificationVersion: '0.1'
+provider: currencylayer
+parent: apilayer
+currency: USD
+billingCycle: monthly
+annualDiscount:
+  available: true
+  notes: Annual billing offers ~10-15% savings versus monthly across paid tiers.
+
+plans:
+  - id: free
+    name: Free
+    price: 0
+    interval: monthly
+    quota:
+      requests: 100
+      window: month
+    refreshCadence: hourly
+    features:
+      - id: live-rates
+        included: true
+      - id: historical-rates
+        included: true
+      - id: currency-list
+        included: true
+      - id: source-currency-switching
+        included: false
+        notes: Source currency fixed to USD.
+      - id: https-encryption
+        included: false
+        notes: HTTP only on Free.
+      - id: currency-conversion-endpoint
+        included: false
+      - id: time-frame-endpoint
+        included: false
+      - id: change-endpoint
+        included: false
+    support: None
+    overage:
+      allowed: false
+
+  - id: basic
+    name: Basic
+    price: 14.99
+    annualPrice: 13.499
+    interval: monthly
+    quota:
+      requests: 10000
+      window: month
+    refreshCadence: hourly
+    features:
+      - id: live-rates
+        included: true
+      - id: historical-rates
+        included: true
+      - id: currency-list
+        included: true
+      - id: source-currency-switching
+        included: true
+      - id: https-encryption
+        included: true
+      - id: currency-conversion-endpoint
+        included: true
+      - id: time-frame-endpoint
+        included: false
+      - id: change-endpoint
+        included: false
+    support: Standard
+    overage:
+      allowed: true
+      pricePerRequest: 0.005996
+
+  - id: professional
+    name: Professional
+    price: 39.99
+    annualPrice: 35.99
+    interval: monthly
+    quota:
+      requests: 100000
+      window: month
+    refreshCadence: 10-minute
+    features:
+      - id: live-rates
+        included: true
+      - id: historical-rates
+        included: true
+      - id: currency-list
+        included: true
+      - id: source-currency-switching
+        included: true
+      - id: https-encryption
+        included: true
+      - id: currency-conversion-endpoint
+        included: true
+      - id: time-frame-endpoint
+        included: false
+      - id: change-endpoint
+        included: false
+    support: Standard
+    overage:
+      allowed: true
+      pricePerRequest: 0.0023996
+    notes: |
+      Historical "Professional" plan tier kept for compatibility with prior pricing
+      surface; current APILayer marketplace listing publishes Enterprise and
+      Enterprise Plus tiers (below) as the equivalents.
+
+  - id: enterprise
+    name: Enterprise
+    price: 59.99
+    annualPrice: 52.49
+    interval: monthly
+    quota:
+      requests: 100000
+      window: month
+    refreshCadence: 60-second
+    features:
+      - id: live-rates
+        included: true
+      - id: historical-rates
+        included: true
+      - id: currency-list
+        included: true
+      - id: source-currency-switching
+        included: true
+      - id: https-encryption
+        included: true
+      - id: currency-conversion-endpoint
+        included: true
+      - id: time-frame-endpoint
+        included: true
+      - id: change-endpoint
+        included: false
+    support: Standard
+    overage:
+      allowed: true
+      pricePerRequest: 0.0023996
+
+  - id: enterprise-plus
+    name: Enterprise Plus
+    price: 99.99
+    annualPrice: 84.99
+    interval: monthly
+    quota:
+      requests: 500000
+      window: month
+    refreshCadence: 60-second
+    features:
+      - id: live-rates
+        included: true
+      - id: historical-rates
+        included: true
+      - id: currency-list
+        included: true
+      - id: source-currency-switching
+        included: true
+      - id: https-encryption
+        included: true
+      - id: currency-conversion-endpoint
+        included: true
+      - id: time-frame-endpoint
+        included: true
+      - id: change-endpoint
+        included: true
+    support: Standard
+    overage:
+      allowed: true
+      pricePerRequest: 0.00079992
+
+  - id: custom
+    name: Custom
+    price: null
+    priceNotes: Custom — contact sales for volume pricing (annual billing).
+    interval: annual
+    quota:
+      requests: null
+      window: month
+      notes: Volume-based; tailored to customer forecast.
+    refreshCadence: 60-second
+    features:
+      - id: live-rates
+        included: true
+      - id: historical-rates
+        included: true
+      - id: currency-list
+        included: true
+      - id: source-currency-switching
+        included: true
+      - id: https-encryption
+        included: true
+      - id: currency-conversion-endpoint
+        included: true
+      - id: time-frame-endpoint
+        included: true
+      - id: change-endpoint
+        included: true
+      - id: dedicated-account-team
+        included: true
+      - id: priority-support
+        included: true
+      - id: custom-sla
+        included: true
+    support: Dedicated
+    overage:
+      allowed: true
+      pricePerRequest: negotiated
+
+featureCatalog:
+  - id: live-rates
+    label: Live Exchange Rates (/live)
+  - id: historical-rates
+    label: Historical Exchange Rates (/historical)
+  - id: currency-list
+    label: Currency List (/list)
+  - id: source-currency-switching
+    label: Source / Base Currency Switching
+  - id: https-encryption
+    label: HTTPS / SSL Encryption
+  - id: currency-conversion-endpoint
+    label: Currency Conversion Endpoint (/convert)
+  - id: time-frame-endpoint
+    label: Time-Frame Endpoint (/timeframe)
+  - id: change-endpoint
+    label: Currency Change Endpoint (/change)
+  - id: dedicated-account-team
+    label: Dedicated Account Team
+  - id: priority-support
+    label: Priority Support
+  - id: custom-sla
+    label: Custom SLA

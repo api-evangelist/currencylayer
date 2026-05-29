@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-structure.org/draft-00/schema",
+  "name": "CurrencylayerCurrenciesResponse",
+  "description": "JSON Structure for the /list response mapping ISO 4217 codes to currency names.",
+  "type": "object",
+  "properties": {
+    "success": { "type": "boolean" },
+    "currencies": {
+      "type": "map",
+      "values": { "type": "string" }
+    }
+  },
+  "required": ["success", "currencies"]
+}

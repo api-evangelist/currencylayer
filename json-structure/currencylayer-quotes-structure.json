@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-structure.org/draft-00/schema",
+  "name": "CurrencylayerQuotesResponse",
+  "description": "JSON Structure for a Currencylayer real-time or historical quotes envelope.",
+  "type": "object",
+  "properties": {
+    "success": { "type": "boolean" },
+    "timestamp": { "type": "int64" },
+    "historical": { "type": "boolean" },
+    "source": { "type": "string", "x-format": "iso4217" },
+    "date": { "type": "string", "x-format": "date" },
+    "quotes": {
+      "type": "map",
+      "values": { "type": "double" }
+    }
+  },
+  "required": ["success", "timestamp", "source", "quotes"]
+}

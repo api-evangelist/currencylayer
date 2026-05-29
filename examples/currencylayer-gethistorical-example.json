@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.apilayer.com/currency_data/historical?date=2005-02-01&source=USD&currencies=AUD,CHF,EUR,GBP,PLN",
+    "headers": {
+      "apikey": "YOUR_API_KEY"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "terms": "https://currencylayer.com/terms",
+      "privacy": "https://currencylayer.com/privacy",
+      "historical": true,
+      "date": "2005-02-01",
+      "timestamp": 1107302399,
+      "source": "USD",
+      "quotes": {
+        "USDAUD": 1.293967,
+        "USDCHF": 1.20567,
+        "USDEUR": 0.768031,
+        "USDGBP": 0.531545,
+        "USDPLN": 3.197572
+      }
+    }
+  }
+}

@@ -1,0 +1,131 @@
+name: Currencylayer FinOps Profile
+description: |
+  Mapping of the Currencylayer commercial surface to the FinOps Framework and
+  the FOCUS cost/usage data specification. Covers billing model, charge
+  categories, unit economics, allocation tags, and recommended optimization plays.
+url: https://raw.githubusercontent.com/api-evangelist/currencylayer/main/finops/currencylayer-finops.yml
+created: '2026-05-29'
+modified: '2026-05-29'
+specificationVersion: '0.1'
+provider: currencylayer
+parent: apilayer
+billedThrough: APILayer Marketplace
+
+billingModel:
+  type: subscription-plus-overage
+  cycle: monthly
+  annualOption: true
+  annualDiscountNotes: ~10-15% effective discount when billing annually.
+
+chargeCategories:
+  - category: Subscription
+    description: Recurring monthly plan fee covering the bundled request quota.
+    skus:
+      - id: plan.free
+        name: Free Plan
+        unitPrice: 0
+        unit: month
+      - id: plan.basic
+        name: Basic Plan
+        unitPrice: 14.99
+        unit: month
+      - id: plan.professional
+        name: Professional Plan
+        unitPrice: 39.99
+        unit: month
+      - id: plan.enterprise
+        name: Enterprise Plan
+        unitPrice: 59.99
+        unit: month
+      - id: plan.enterprise-plus
+        name: Enterprise Plus Plan
+        unitPrice: 99.99
+        unit: month
+      - id: plan.custom
+        name: Custom Plan
+        unitPrice: null
+        unit: month
+        notes: Custom annual contract.
+
+  - category: Usage
+    description: Per-request overage charges once a plan's monthly quota is exceeded.
+    skus:
+      - id: overage.basic
+        name: Basic Overage
+        unitPrice: 0.005996
+        unit: request
+      - id: overage.professional
+        name: Professional Overage
+        unitPrice: 0.0023996
+        unit: request
+      - id: overage.enterprise
+        name: Enterprise Overage
+        unitPrice: 0.0023996
+        unit: request
+      - id: overage.enterprise-plus
+        name: Enterprise Plus Overage
+        unitPrice: 0.00079992
+        unit: request
+      - id: overage.custom
+        name: Custom Overage
+        unitPrice: negotiated
+        unit: request
+
+focusMapping:
+  ServiceName: Currencylayer
+  ProviderName: APILayer
+  PublisherName: APILayer
+  ServiceCategory: Integration Services
+  ChargeCategory:
+    Subscription: Subscription
+    Usage: Usage
+  PricingUnit: request
+  PricingCurrency: USD
+  BillingCurrency: USD
+  ChargeFrequency:
+    Subscription: Recurring
+    Usage: Usage
+
+allocationTags:
+  recommended:
+    - tag: cost-center
+      description: Internal cost center consuming Currencylayer rates.
+    - tag: product
+      description: Downstream product (checkout, treasury, analytics) that called Currencylayer.
+    - tag: environment
+      description: dev / staging / prod separation for API keys.
+    - tag: customer
+      description: If reselling FX data, tag charges back to end customers.
+  derivedFromApiKey: true
+  notes: |
+    APILayer issues one API key per subscription. Provision distinct keys per
+    environment and per product line so usage can be reconciled against
+    allocation tags downstream.
+
+optimizationPlays:
+  - id: cache-currency-list
+    description: Cache /list responses for 24h+; the supported-currency set rarely changes.
+    estimatedSavings: high
+  - id: cache-historical
+    description: Cache historical /historical responses indefinitely; end-of-day rates are immutable.
+    estimatedSavings: high
+  - id: right-size-cadence
+    description: Match plan freshness (hourly / 10-min / 60-sec) to actual downstream needs.
+    estimatedSavings: medium
+  - id: batch-currencies-filter
+    description: Use `currencies=` to restrict to the pairs you actually consume; smaller payload + faster downstream parse.
+    estimatedSavings: low
+  - id: prefer-annual-billing
+    description: Switch to annual billing for 10-15% effective discount once usage is steady.
+    estimatedSavings: medium
+  - id: monitor-overage
+    description: Alert on 80% of monthly quota to avoid surprise overage charges.
+    estimatedSavings: medium
+  - id: prefer-apilayer-endpoint
+    description: Use api.apilayer.com/currency_data (HTTPS, `apikey` header) over the legacy access_key query param to align with modern auth and monitoring tooling.
+    estimatedSavings: low
+
+reportingCadence:
+  invoice: monthly
+  usageVisibility: APILayer dashboard (real-time)
+  exportFormats: [CSV, PDF]

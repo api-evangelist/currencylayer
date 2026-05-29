@@ -1,32 +1,260 @@
 aid: currencylayer
 name: Currencylayer
-description: "Exchange rates and currency conversion"
-url: https://currencylayer.com?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo-Best-sellers
+description: >-
+  Currencylayer is a real-time and historical foreign exchange rate JSON API
+  delivering bank-grade exchange rate data for 168 world currencies and
+  precious metals, sourced from 15+ commercial-grade providers. The service is
+  delivered through the APILayer marketplace under a freemium subscription
+  model with refresh cadence ranging from hourly on Free up to 60 seconds on
+  Enterprise tiers.
+url: https://currencylayer.com
 specificationVersion: '0.20'
 created: '2026-05-28'
-modified: '2026-05-28'
+modified: '2026-05-29'
 x-source: public-apis/public-apis
-x-category: "Currency Exchange"
+x-category: Currency Exchange
+x-type: company
 x-tier: 3
 x-tier-reason: bulk-registered-from-public-apis
+x-parent: apilayer
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Currency Exchange
+  - Foreign Exchange
+  - FX
+  - Forex
+  - Conversion
+  - Historical Rates
+  - Time Frame
+  - Change Report
+  - Precious Metals
+  - APILayer
   - Public APIs
 apis:
-  - name: Currencylayer
-    description: "Exchange rates and currency conversion"
-    humanURL: https://currencylayer.com?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo-Best-sellers
-    baseURL: https://currencylayer.com?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo-Best-sellers
+  - aid: currencylayer:currencylayer-api
+    name: Currencylayer API
+    description: >-
+      The Currencylayer REST API exposes six operations covering currency
+      symbol discovery, real-time and historical rates, on-demand currency
+      conversion, daily time-frame windows, and change reporting.
+      Authentication is via the APILayer `apikey` header on the modern endpoint
+      or the legacy `access_key` query parameter.
+    humanURL: https://currencylayer.com/documentation
+    baseURL: https://api.apilayer.com/currency_data
     tags:
       - Currency Exchange
+      - Foreign Exchange
+      - APILayer
     properties:
       - type: Documentation
-        url: https://currencylayer.com?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo-Best-sellers
+        url: https://docs.apilayer.com/currencylayer/docs/api-documentation
+      - type: APIReference
+        url: https://apilayer.com/marketplace/currency_data-api
+      - type: Quickstart
+        url: https://docs.apilayer.com/currencylayer/docs/getting-started
+      - type: Authentication
+        url: https://docs.apilayer.com/currencylayer/docs/getting-started
+      - type: OpenAPI
+        url: openapi/currencylayer-openapi.yml
+      - type: JSONSchema
+        url: json-schema/currencylayer-quotes-schema.json
+      - type: JSONSchema
+        url: json-schema/currencylayer-currencies-schema.json
+      - type: JSONSchema
+        url: json-schema/currencylayer-convert-schema.json
+      - type: JSONSchema
+        url: json-schema/currencylayer-timeframe-schema.json
+      - type: JSONSchema
+        url: json-schema/currencylayer-change-schema.json
+      - type: JSONSchema
+        url: json-schema/currencylayer-error-schema.json
+      - type: JSONStructure
+        url: json-structure/currencylayer-quotes-structure.json
+      - type: JSONStructure
+        url: json-structure/currencylayer-currencies-structure.json
+      - type: JSONStructure
+        url: json-structure/currencylayer-convert-structure.json
+      - type: JSONStructure
+        url: json-structure/currencylayer-timeframe-structure.json
+      - type: JSONStructure
+        url: json-structure/currencylayer-change-structure.json
+      - type: JSON-LD
+        url: json-ld/currencylayer-context.jsonld
+      - type: Example
+        url: examples/currencylayer-listcurrencies-example.json
+      - type: Example
+        url: examples/currencylayer-getlive-example.json
+      - type: Example
+        url: examples/currencylayer-gethistorical-example.json
+      - type: Example
+        url: examples/currencylayer-convertcurrency-example.json
+      - type: Example
+        url: examples/currencylayer-gettimeframe-example.json
+      - type: Example
+        url: examples/currencylayer-getchange-example.json
+      - type: RateLimits
+        url: rate-limits/currencylayer-rate-limits.yml
+      - type: Pricing
+        url: plans/currencylayer-plans-pricing.yml
+      - type: SDK
+        url: https://github.com/said-ali/currencylayer
+        title: Python SDK (community)
+      - type: SDK
+        url: https://github.com/phlegx/money-currencylayer-bank
+        title: Ruby Gem (Money / community)
+      - type: SDK
+        url: https://github.com/orkhanahmadov/laravel-currencylayer
+        title: Laravel Package (community)
+      - type: SDK
+        url: https://github.com/keymusicman/CurrencyLayer4NET
+        title: .NET Library (community)
+      - type: SDK
+        url: https://github.com/jfayad/currencylayer
+        title: Elixir Library (community)
+      - type: CodeExamples
+        url: https://github.com/apilayer/currencylayer-API
+        title: Reference Java Demo (apilayer, archived)
+      - type: CodeExamples
+        url: https://github.com/apilayer/currency-converter-app
+        title: Currency Converter App (apilayer)
+      - type: CodeExamples
+        url: https://github.com/apilayer/currency-conversion
+        title: Currency Conversion Sample (apilayer, archived)
+    operations:
+      - method: GET
+        endpoint: /list
+        summary: List Supported Currencies
+      - method: GET
+        endpoint: /live
+        summary: Get Live Exchange Rates
+      - method: GET
+        endpoint: /historical
+        summary: Get Historical Exchange Rates
+      - method: GET
+        endpoint: /convert
+        summary: Convert Currency Amount
+      - method: GET
+        endpoint: /timeframe
+        summary: Get Time-Frame Exchange Rates
+      - method: GET
+        endpoint: /change
+        summary: Get Currency Change Data
 common:
   - type: Website
-    url: https://currencylayer.com?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo-Best-sellers
+    url: https://currencylayer.com
+  - type: Documentation
+    url: https://docs.apilayer.com/currencylayer/docs/api-documentation
+  - type: APIReference
+    url: https://apilayer.com/marketplace/currency_data-api
+  - type: Pricing
+    url: https://currencylayer.com/product
+  - type: SignUp
+    url: https://apilayer.com/signup
+  - type: Login
+    url: https://apilayer.com/login
+  - type: TermsOfService
+    url: https://currencylayer.com/terms
+  - type: PrivacyPolicy
+    url: https://currencylayer.com/privacy
+  - type: Support
+    url: https://currencylayer.com/contact
+  - type: Blog
+    url: https://blog.apilayer.com/
+  - type: GitHubOrganization
+    url: https://github.com/apilayer
+  - type: GitHubRepository
+    url: https://github.com/apilayer/currencylayer-API
   - type: PublicAPIsListing
     url: https://github.com/public-apis/public-apis
+  - type: SpectralRules
+    url: rules/currencylayer-rules.yml
+  - type: Vocabulary
+    url: vocabulary/currencylayer-vocabulary.yml
+  - type: NaftikoCapability
+    url: capabilities/shared/currencylayer-shared.yaml
+  - type: NaftikoCapability
+    url: capabilities/currency-conversion.yaml
+  - type: NaftikoCapability
+    url: capabilities/historical-rate-lookup.yaml
+  - type: NaftikoCapability
+    url: capabilities/treasury-reporting.yaml
+  - type: NaftikoCapability
+    url: capabilities/ecommerce-multi-currency-pricing.yaml
+  - type: Plans
+    url: plans/currencylayer-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/currencylayer-rate-limits.yml
+  - type: FinOps
+    url: finops/currencylayer-finops.yml
+  - type: Tools
+    url: https://blog.apilayer.com/how-to-turn-any-rest-api-into-an-mcp-server-for-claude-complete-2026-pillar-guide/
+    title: APILayer MCP Server Pattern (currencylayer example)
+  - type: Features
+    data:
+      - name: 168 World Currencies
+        description: Coverage of fiat currencies plus precious metals, sourced from 15+ commercial-grade providers.
+      - name: Real-Time Exchange Rates
+        description: Latest rates with refresh cadence ranging from hourly (Free) to 60 seconds (Enterprise and above).
+      - name: Historical Exchange Rates
+        description: End-of-day rates for any day since 1999, available on every plan including Free.
+      - name: Currency Conversion Endpoint
+        description: On-demand conversion between any two currencies at real-time or historical rates.
+      - name: Time-Frame Endpoint
+        description: Daily rates between two arbitrary dates (max 365 days) for trend analysis.
+      - name: Change Endpoint
+        description: Start rate, end rate, absolute change, and percentage change for a chosen window.
+      - name: HTTPS Encryption
+        description: SSL-secured transport on Basic plan and above; Free is HTTP only.
+      - name: Source Currency Switching
+        description: Choose any of the 168 codes as the base currency on Basic plan and above.
+      - name: APILayer Unified Auth
+        description: One APILayer `apikey` works across Currencylayer and other APILayer marketplace APIs.
+      - name: Bank-Grade Data Sourcing
+        description: Aggregated from 15+ commercial-grade providers, suitable for finance and treasury workloads.
+  - type: UseCases
+    data:
+      - name: E-Commerce Multi-Currency Pricing
+        description: Convert prices into the shopper's local currency at checkout using /convert and /live.
+      - name: Treasury and Cash Reporting
+        description: Daily mark-to-market of multi-currency balances using /timeframe and /change.
+      - name: Travel and Fintech Apps
+        description: Power in-app FX widgets, traveler wallets, and remittance quotes with /live.
+      - name: Accounting and Ledger Reconciliation
+        description: Look up the official end-of-day rate for any historical transaction with /historical.
+      - name: Backtesting and Analytics
+        description: Pull windowed rate history with /timeframe to feed quant or BI models.
+      - name: Compliance and Audit Trails
+        description: Reference an immutable end-of-day rate when auditing cross-border payments.
+      - name: AI Agents and MCP Tools
+        description: Expose live and historical rates to LLM agents via APILayer's MCP server pattern.
+  - type: Integrations
+    data:
+      - name: APILayer Marketplace
+        description: Currencylayer is distributed via the APILayer hub; signup, billing, and key management share the marketplace.
+      - name: Fixer
+        description: Sister APILayer FX product with overlapping surface; commonly used interchangeably or for redundancy.
+      - name: Coinlayer
+        description: Cryptocurrency exchange rate API on the same APILayer platform.
+      - name: Open Exchange Rates
+        description: Competing FX API that consumers benchmark Currencylayer against.
+      - name: Frankfurter / ExchangeRate.host
+        description: Free/community FX alternatives often evaluated alongside Currencylayer.
+      - name: Money / money.js
+        description: Server- and browser-side libraries paired with Currencylayer for conversion math.
+  - type: Solutions
+    data:
+      - name: Free Plan
+        description: 100 requests/month, hourly refresh, USD base only, HTTP only. Best for prototyping.
+      - name: Basic Plan
+        description: 10,000 requests/month at $14.99/mo, HTTPS, source-currency switching, /convert endpoint.
+      - name: Professional Plan
+        description: 100,000 requests/month at $39.99/mo, 10-minute refresh, /convert endpoint.
+      - name: Enterprise Plan
+        description: 100,000 requests/month at $59.99/mo, 60-second refresh, /timeframe endpoint.
+      - name: Enterprise Plus Plan
+        description: 500,000 requests/month at $99.99/mo, 60-second refresh, /timeframe and /change endpoints.
+      - name: Custom Plan
+        description: Volume-based pricing, 60-second refresh, dedicated account team and priority support.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

@@ -1,0 +1,125 @@
+extends:
+  - spectral:oas
+rules:
+  # All operations MUST have an operationId in lowerCamelCase
+  currencylayer-operation-id-required:
+    description: Every operation must have a non-empty operationId.
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: operationId
+      function: truthy
+
+  currencylayer-operation-id-camel-case:
+    description: operationId values must be lowerCamelCase.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+
+  # Every operation MUST have a summary in Title Case
+  currencylayer-operation-summary-required:
+    description: Every operation must have a summary.
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: summary
+      function: truthy
+
+  currencylayer-operation-summary-title-case:
+    description: Operation summaries must use Title Case.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: "^([A-Z][a-zA-Z0-9-]*)( ([A-Z][a-zA-Z0-9-]*|of|to|for|in|on|by|the|and|or|a|an))*$"
+
+  # Every operation MUST have a description
+  currencylayer-operation-description-required:
+    description: Every operation must have a description.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: description
+      function: truthy
+
+  # Every operation MUST have at least one tag
+  currencylayer-operation-tags-required:
+    description: Every operation must declare at least one tag.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: tags
+      function: truthy
+
+  # Currency code parameters MUST follow ISO 4217 in examples
+  currencylayer-currency-code-example-format:
+    description: Currency code example values (source/currencies/from/to) must be uppercase ISO 4217 codes.
+    severity: warn
+    given: $.paths[*].get.parameters[?(@.name=='source' || @.name=='from' || @.name=='to')].schema.example
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z]{3}$"
+
+  # Date parameters MUST be format: date
+  currencylayer-date-parameter-format:
+    description: Date-valued parameters must declare schema.format = 'date'.
+    severity: warn
+    given: $.paths[*].get.parameters[?(@.name=='date' || @.name=='start_date' || @.name=='end_date')].schema
+    then:
+      field: format
+      function: truthy
+
+  # Response schemas MUST include a top-level 'success' boolean (Currencylayer envelope convention)
+  currencylayer-response-success-envelope:
+    description: Response schemas must include a `success` boolean property.
+    severity: warn
+    given: $.components.schemas[?(@property!='ErrorResponse' && @property!='ChangeEntry')].properties
+    then:
+      field: success
+      function: truthy
+
+  # Error responses MUST conform to the Currencylayer error envelope
+  currencylayer-error-envelope:
+    description: ErrorResponse schema must include success=false and a nested error object with code/type/info.
+    severity: error
+    given: $.components.schemas.ErrorResponse.properties
+    then:
+      field: error
+      function: truthy
+
+  # API key auth must be defined (APILayer header style preferred)
+  currencylayer-apikey-security-scheme:
+    description: ApiKeyAuth security scheme must be defined as a header named 'apikey'.
+    severity: error
+    given: $.components.securitySchemes.ApiKeyAuth
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required:
+            - type
+            - in
+            - name
+          properties:
+            type:
+              const: apiKey
+            in:
+              const: header
+            name:
+              const: apikey
+
+  # Servers should include the APILayer-hosted endpoint
+  currencylayer-server-apilayer-required:
+    description: At least one server must point at api.apilayer.com/currency_data.
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: "api\\.apilayer\\.com/currency_data|api\\.currencylayer\\.com"

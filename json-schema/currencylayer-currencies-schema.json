@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/currencylayer/json-schema/currencylayer-currencies-schema.json",
+  "title": "Currencylayer Currencies Response",
+  "description": "Envelope returned by /list containing every supported ISO 4217 currency code mapped to its full name.",
+  "type": "object",
+  "required": ["success", "currencies"],
+  "properties": {
+    "success": { "type": "boolean" },
+    "terms": { "type": "string", "format": "uri" },
+    "privacy": { "type": "string", "format": "uri" },
+    "currencies": {
+      "type": "object",
+      "description": "Map of ISO 4217 code to currency display name.",
+      "additionalProperties": { "type": "string" }
+    }
+  }
+}

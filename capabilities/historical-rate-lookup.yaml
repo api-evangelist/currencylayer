@@ -1,0 +1,35 @@
+apiVersion: capability.naftiko.dev/v1alpha1
+kind: Capability
+metadata:
+  name: historical-rate-lookup
+  provider: currencylayer
+  description: |
+    Look up the end-of-day exchange rate for a specific historical date and
+    currency pair. Useful for ledger reconciliation, audit trails, and
+    point-in-time valuation. Available on all plans including Free.
+spec:
+  uses:
+    - sharedCapability: currencylayer-shared
+      operations: [getHistorical, listCurrencies]
+  preconditions:
+    - description: Date must be on or after 1999-01-01 (the earliest day Currencylayer covers).
+  workflow:
+    - step: validateSymbol
+      operation: listCurrencies
+    - step: fetchHistorical
+      operation: getHistorical
+      parameters:
+        date: "{{ input.date }}"
+        source: "{{ input.source | default: 'USD' }}"
+        currencies: "{{ input.currencies }}"
+  outputs:
+    date: "{{ fetchHistorical.date }}"
+    source: "{{ fetchHistorical.source }}"
+    quotes: "{{ fetchHistorical.quotes }}"
+    timestamp: "{{ fetchHistorical.timestamp }}"
+  governance:
+    minPlan: Free
+    httpsRequired: false
+    notes: |
+      Historical lookup is available on all tiers including Free, but Free is HTTP-only
+      and locked to USD source. Use Basic or above for HTTPS and arbitrary source currency.

@@ -1,0 +1,43 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "fx": "https://api-evangelist.github.io/currencylayer/vocab#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "success": "fx:success",
+    "terms": { "@id": "fx:termsUrl", "@type": "@id" },
+    "privacy": { "@id": "fx:privacyUrl", "@type": "@id" },
+    "timestamp": { "@id": "fx:timestamp", "@type": "xsd:long" },
+    "historical": { "@id": "fx:historical", "@type": "xsd:boolean" },
+    "source": { "@id": "fx:sourceCurrency", "@type": "fx:CurrencyCode" },
+    "date": { "@id": "fx:rateDate", "@type": "xsd:date" },
+    "start_date": { "@id": "fx:startDate", "@type": "xsd:date" },
+    "end_date": { "@id": "fx:endDate", "@type": "xsd:date" },
+    "timeframe": "fx:timeFrame",
+    "change": "fx:change",
+
+    "quotes": { "@id": "fx:quotes", "@container": "@index" },
+    "currencies": { "@id": "fx:currencies", "@container": "@index" },
+
+    "query": "fx:conversionQuery",
+    "info": "fx:conversionInfo",
+    "quote": { "@id": "fx:exchangeQuote", "@type": "xsd:double" },
+    "result": { "@id": "fx:conversionResult", "@type": "xsd:double" },
+    "amount": { "@id": "fx:amount", "@type": "xsd:double" },
+    "from": { "@id": "fx:fromCurrency", "@type": "fx:CurrencyCode" },
+    "to": { "@id": "fx:toCurrency", "@type": "fx:CurrencyCode" },
+
+    "start_rate": { "@id": "fx:startRate", "@type": "xsd:double" },
+    "end_rate": { "@id": "fx:endRate", "@type": "xsd:double" },
+    "change_pct": { "@id": "fx:changePercent", "@type": "xsd:double" },
+
+    "error": "fx:error",
+    "code": { "@id": "fx:errorCode", "@type": "xsd:integer" },
+    "type": "fx:errorType",
+    "info_text": { "@id": "fx:errorInfo", "@type": "xsd:string" },
+
+    "provider": "schema:provider",
+    "apilayer": { "@id": "fx:apilayerMarketplace", "@type": "@id" }
+  }
+}

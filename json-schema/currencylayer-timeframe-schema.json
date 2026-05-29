@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/currencylayer/json-schema/currencylayer-timeframe-schema.json",
+  "title": "Currencylayer Time-Frame Response",
+  "description": "Envelope returned by /timeframe containing daily quotes for each date in the requested window (up to 365 days).",
+  "type": "object",
+  "required": ["success", "timeframe", "start_date", "end_date", "source", "quotes"],
+  "properties": {
+    "success": { "type": "boolean" },
+    "terms": { "type": "string", "format": "uri" },
+    "privacy": { "type": "string", "format": "uri" },
+    "timeframe": { "type": "boolean" },
+    "start_date": { "type": "string", "format": "date" },
+    "end_date": { "type": "string", "format": "date" },
+    "source": { "type": "string", "pattern": "^[A-Z]{3}$" },
+    "quotes": {
+      "type": "object",
+      "description": "Map of date (YYYY-MM-DD) to per-pair quotes for that date.",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": { "type": "number" }
+      }
+    }
+  }
+}

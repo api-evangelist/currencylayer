@@ -1,0 +1,585 @@
+openapi: 3.0.3
+info:
+  title: Currencylayer API
+  description: |
+    Currencylayer is a real-time and historical foreign exchange rate JSON API
+    delivering bank-grade exchange rate data for 168 world currencies and precious
+    metals, sourced from 15+ commercial-grade providers. The API is delivered via
+    the APILayer marketplace and the legacy `apilayer.net` endpoint.
+
+    Authentication uses the `access_key` query parameter on the legacy endpoint and
+    the `apikey` HTTP header on the APILayer marketplace endpoint. The Free plan is
+    limited to 100 requests per month and is HTTP-only with USD base; HTTPS,
+    arbitrary base currency switching, and the `/convert` endpoint unlock on the
+    Basic plan and above. The `/timeframe` endpoint requires the Enterprise plan
+    and `/change` requires Enterprise Plus.
+  version: "1.0.0"
+  contact:
+    name: Currencylayer Support
+    url: https://currencylayer.com/contact
+  license:
+    name: Commercial
+    url: https://currencylayer.com/terms
+  termsOfService: https://currencylayer.com/terms
+  x-provider: currencylayer
+  x-parent: apilayer
+servers:
+  - url: https://api.apilayer.com/currency_data
+    description: APILayer-hosted production endpoint (current, HTTPS, apikey header)
+  - url: https://api.currencylayer.com
+    description: Legacy currencylayer.com endpoint (HTTPS, access_key query, paid tiers)
+  - url: http://api.currencylayer.com
+    description: Legacy currencylayer.com endpoint (HTTP, free tier)
+tags:
+  - name: Rates
+    description: Real-time and historical foreign exchange rate operations.
+  - name: Symbols
+    description: Discovery of supported currency symbols.
+  - name: Conversion
+    description: On-demand currency amount conversion.
+  - name: Time Frame
+    description: Daily historical rates between two dates.
+  - name: Change
+    description: Currency change (margin and percentage) analysis between two dates.
+security:
+  - ApiKeyAuth: []
+  - AccessKeyQuery: []
+paths:
+  /list:
+    get:
+      operationId: listCurrencies
+      summary: List Supported Currencies
+      description: |
+        Returns the full list of currencies Currencylayer supports along with their
+        full names. Available on every plan including Free.
+      tags:
+        - Symbols
+      responses:
+        "200":
+          description: A map of ISO 4217 currency codes to currency names.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CurrenciesResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+  /live:
+    get:
+      operationId: getLive
+      summary: Get Live Exchange Rates
+      description: |
+        Returns the most recent exchange rate data. Rates refresh every 60 minutes
+        on Free and Basic, every 10 minutes on Professional, and every 60 seconds
+        on Enterprise and above.
+      tags:
+        - Rates
+      parameters:
+        - $ref: "#/components/parameters/Source"
+        - $ref: "#/components/parameters/Currencies"
+      responses:
+        "200":
+          description: Latest rates anchored to the requested source currency.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuotesResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+  /historical:
+    get:
+      operationId: getHistorical
+      summary: Get Historical Exchange Rates
+      description: |
+        Returns end-of-day historical exchange rates for any date since 1999.
+        Available on every plan including Free.
+      tags:
+        - Rates
+      parameters:
+        - name: date
+          in: query
+          required: true
+          description: ISO-8601 date in `YYYY-MM-DD` format (any working day since 1999).
+          schema:
+            type: string
+            format: date
+            example: "2005-02-01"
+        - $ref: "#/components/parameters/Source"
+        - $ref: "#/components/parameters/Currencies"
+      responses:
+        "200":
+          description: Historical end-of-day rates for the requested date.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuotesResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+  /convert:
+    get:
+      operationId: convertCurrency
+      summary: Convert Currency Amount
+      description: |
+        Converts an amount from one currency to another using real-time or historical
+        rates. Available on Basic plan and above.
+      tags:
+        - Conversion
+      parameters:
+        - name: from
+          in: query
+          required: true
+          description: Three-letter source currency code (ISO 4217).
+          schema:
+            type: string
+            example: USD
+        - name: to
+          in: query
+          required: true
+          description: Three-letter target currency code (ISO 4217).
+          schema:
+            type: string
+            example: GBP
+        - name: amount
+          in: query
+          required: true
+          description: Amount to convert.
+          schema:
+            type: number
+            example: 10
+        - name: date
+          in: query
+          required: false
+          description: Optional historical date (YYYY-MM-DD) to use for the conversion rate.
+          schema:
+            type: string
+            format: date
+            example: "2005-01-01"
+      responses:
+        "200":
+          description: Converted amount and conversion metadata.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConvertResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+  /timeframe:
+    get:
+      operationId: getTimeFrame
+      summary: Get Time-Frame Exchange Rates
+      description: |
+        Returns daily historical exchange rates between two dates of your choice,
+        with a maximum range of 365 days. Available on Enterprise plan and above.
+      tags:
+        - Time Frame
+      parameters:
+        - name: start_date
+          in: query
+          required: true
+          description: Start date for the time-frame window (YYYY-MM-DD).
+          schema:
+            type: string
+            format: date
+            example: "2010-03-01"
+        - name: end_date
+          in: query
+          required: true
+          description: End date for the time-frame window (YYYY-MM-DD).
+          schema:
+            type: string
+            format: date
+            example: "2010-04-01"
+        - $ref: "#/components/parameters/Source"
+        - $ref: "#/components/parameters/Currencies"
+      responses:
+        "200":
+          description: Map of dates to daily rates for the requested window.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TimeFrameResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+  /change:
+    get:
+      operationId: getChange
+      summary: Get Currency Change Data
+      description: |
+        Returns currency change parameters (start rate, end rate, absolute change,
+        percentage change) between two dates for any supported currency pair.
+        Available on Enterprise Plus plan and above.
+      tags:
+        - Change
+      parameters:
+        - name: start_date
+          in: query
+          required: false
+          description: Start date for the change window (YYYY-MM-DD). Defaults to yesterday.
+          schema:
+            type: string
+            format: date
+            example: "2005-01-01"
+        - name: end_date
+          in: query
+          required: false
+          description: End date for the change window (YYYY-MM-DD). Defaults to today.
+          schema:
+            type: string
+            format: date
+            example: "2010-01-01"
+        - name: currencies
+          in: query
+          required: true
+          description: Comma-separated ISO 4217 currency codes to report on.
+          schema:
+            type: string
+            example: AUD,EUR,MXN
+        - $ref: "#/components/parameters/Source"
+      responses:
+        "200":
+          description: Per-currency change summary for the requested window.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChangeResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: APILayer marketplace API key (https://apilayer.com/marketplace/currency_data-api).
+    AccessKeyQuery:
+      type: apiKey
+      in: query
+      name: access_key
+      description: Legacy Currencylayer access key (https://currencylayer.com/dashboard).
+  parameters:
+    Source:
+      name: source
+      in: query
+      required: false
+      description: |
+        Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free
+        plan; any source currency may be selected on Basic plan and above.
+      schema:
+        type: string
+        example: USD
+    Currencies:
+      name: currencies
+      in: query
+      required: false
+      description: Comma-separated list of ISO 4217 currency codes to limit the result set.
+      schema:
+        type: string
+        example: AUD,CHF,EUR,GBP,PLN
+  responses:
+    Unauthorized:
+      description: Missing or invalid `apikey` / `access_key`.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    Forbidden:
+      description: The requested feature is not included in the current subscription plan.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    RateLimited:
+      description: Monthly request quota exhausted or per-minute rate limit hit.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+  schemas:
+    CurrenciesResponse:
+      type: object
+      required:
+        - success
+        - currencies
+      properties:
+        success:
+          type: boolean
+          example: true
+        terms:
+          type: string
+          format: uri
+          example: https://currencylayer.com/terms
+        privacy:
+          type: string
+          format: uri
+          example: https://currencylayer.com/privacy
+        currencies:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            AED: United Arab Emirates Dirham
+            AFN: Afghan Afghani
+            ALL: Albanian Lek
+            USD: United States Dollar
+    QuotesResponse:
+      type: object
+      required:
+        - success
+        - timestamp
+        - source
+        - quotes
+      properties:
+        success:
+          type: boolean
+          example: true
+        terms:
+          type: string
+          format: uri
+          example: https://currencylayer.com/terms
+        privacy:
+          type: string
+          format: uri
+          example: https://currencylayer.com/privacy
+        timestamp:
+          type: integer
+          format: int64
+          example: 1430068515
+        source:
+          type: string
+          example: USD
+        historical:
+          type: boolean
+          example: false
+        date:
+          type: string
+          format: date
+          example: "2025-09-13"
+        quotes:
+          type: object
+          description: |
+            Map of concatenated source+target ISO 4217 codes (e.g. `USDEUR`) to the
+            exchange rate of one unit of `source` expressed in the target currency.
+          additionalProperties:
+            type: number
+          example:
+            USDAUD: 1.278384
+            USDCHF: 0.953975
+            USDEUR: 0.919677
+            USDGBP: 0.658443
+            USDPLN: 3.713873
+    ConvertResponse:
+      type: object
+      required:
+        - success
+        - query
+        - info
+        - result
+      properties:
+        success:
+          type: boolean
+          example: true
+        terms:
+          type: string
+          format: uri
+          example: https://currencylayer.com/terms
+        privacy:
+          type: string
+          format: uri
+          example: https://currencylayer.com/privacy
+        query:
+          type: object
+          properties:
+            from:
+              type: string
+              example: USD
+            to:
+              type: string
+              example: GBP
+            amount:
+              type: number
+              example: 10
+        info:
+          type: object
+          properties:
+            timestamp:
+              type: integer
+              format: int64
+              example: 1430068515
+            quote:
+              type: number
+              example: 0.658443
+        historical:
+          type: boolean
+          example: false
+        date:
+          type: string
+          format: date
+          example: "2005-01-01"
+        result:
+          type: number
+          example: 6.58443
+    TimeFrameResponse:
+      type: object
+      required:
+        - success
+        - timeframe
+        - start_date
+        - end_date
+        - source
+        - quotes
+      properties:
+        success:
+          type: boolean
+          example: true
+        terms:
+          type: string
+          format: uri
+          example: https://currencylayer.com/terms
+        privacy:
+          type: string
+          format: uri
+          example: https://currencylayer.com/privacy
+        timeframe:
+          type: boolean
+          example: true
+        start_date:
+          type: string
+          format: date
+          example: "2010-03-01"
+        end_date:
+          type: string
+          format: date
+          example: "2010-04-01"
+        source:
+          type: string
+          example: USD
+        quotes:
+          type: object
+          description: Map of dates to per-currency quotes for that date.
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: number
+          example:
+            "2010-03-01":
+              USDUSD: 1
+              USDGBP: 0.668525
+              USDEUR: 0.738541
+            "2010-03-02":
+              USDUSD: 1
+              USDGBP: 0.668827
+              USDEUR: 0.736145
+    ChangeResponse:
+      type: object
+      required:
+        - success
+        - change
+        - start_date
+        - end_date
+        - source
+        - quotes
+      properties:
+        success:
+          type: boolean
+          example: true
+        terms:
+          type: string
+          format: uri
+          example: https://currencylayer.com/terms
+        privacy:
+          type: string
+          format: uri
+          example: https://currencylayer.com/privacy
+        change:
+          type: boolean
+          example: true
+        start_date:
+          type: string
+          format: date
+          example: "2005-01-01"
+        end_date:
+          type: string
+          format: date
+          example: "2010-01-01"
+        source:
+          type: string
+          example: USD
+        quotes:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/ChangeEntry"
+          example:
+            USDAUD:
+              start_rate: 1.281236
+              end_rate: 1.108609
+              change: -0.1726
+              change_pct: -13.4735
+            USDEUR:
+              start_rate: 0.73618
+              end_rate: 0.697253
+              change: -0.0389
+              change_pct: -5.2877
+            USDMXN:
+              start_rate: 11.149362
+              end_rate: 13.108757
+              change: 1.9594
+              change_pct: 17.5741
+    ChangeEntry:
+      type: object
+      properties:
+        start_rate:
+          type: number
+        end_rate:
+          type: number
+        change:
+          type: number
+        change_pct:
+          type: number
+    ErrorResponse:
+      type: object
+      required:
+        - success
+        - error
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              example: 104
+              description: |
+                Currencylayer error code. Known codes:
+                  101 — Missing or invalid Access Key
+                  103 — Non-existent API Function requested
+                  104 — Monthly request allowance exceeded
+                  105 — Requested function unavailable under current plan
+                  106 — Query returned no results
+                  404 — Requested resource does not exist
+            type:
+              type: string
+              example: monthly_usage_limit_reached
+            info:
+              type: string
+              example: Your monthly API request volume has been reached. Please upgrade your Subscription Plan.
