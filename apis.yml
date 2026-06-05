@@ -1,12 +1,10 @@
 aid: currencylayer
 name: Currencylayer
 description: >-
-  Currencylayer is a real-time and historical foreign exchange rate JSON API
-  delivering bank-grade exchange rate data for 168 world currencies and
-  precious metals, sourced from 15+ commercial-grade providers. The service is
-  delivered through the APILayer marketplace under a freemium subscription
-  model with refresh cadence ranging from hourly on Free up to 60 seconds on
-  Enterprise tiers.
+  Currencylayer is a real-time and historical foreign exchange rate JSON API delivering bank-grade exchange rate data
+  for 168 world currencies and precious metals, sourced from 15+ commercial-grade providers. The service is delivered
+  through the APILayer marketplace under a freemium subscription model with refresh cadence ranging from hourly on Free
+  up to 60 seconds on Enterprise tiers.
 url: https://currencylayer.com
 specificationVersion: '0.20'
 created: '2026-05-28'
@@ -34,11 +32,9 @@ apis:
   - aid: currencylayer:currencylayer-api
     name: Currencylayer API
     description: >-
-      The Currencylayer REST API exposes six operations covering currency
-      symbol discovery, real-time and historical rates, on-demand currency
-      conversion, daily time-frame windows, and change reporting.
-      Authentication is via the APILayer `apikey` header on the modern endpoint
-      or the legacy `access_key` query parameter.
+      The Currencylayer REST API exposes six operations covering currency symbol discovery, real-time and historical
+      rates, on-demand currency conversion, daily time-frame windows, and change reporting. Authentication is via the
+      APILayer `apikey` header on the modern endpoint or the legacy `access_key` query parameter.
     humanURL: https://currencylayer.com/documentation
     baseURL: https://api.apilayer.com/currency_data
     tags:
@@ -170,16 +166,6 @@ common:
     url: rules/currencylayer-rules.yml
   - type: Vocabulary
     url: vocabulary/currencylayer-vocabulary.yml
-  - type: NaftikoCapability
-    url: capabilities/shared/currencylayer-shared.yaml
-  - type: NaftikoCapability
-    url: capabilities/currency-conversion.yaml
-  - type: NaftikoCapability
-    url: capabilities/historical-rate-lookup.yaml
-  - type: NaftikoCapability
-    url: capabilities/treasury-reporting.yaml
-  - type: NaftikoCapability
-    url: capabilities/ecommerce-multi-currency-pricing.yaml
   - type: Plans
     url: plans/currencylayer-plans-pricing.yml
   - type: RateLimits
