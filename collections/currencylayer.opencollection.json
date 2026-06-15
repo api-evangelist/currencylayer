@@ -1,0 +1,236 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Currencylayer API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Symbols",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Supported Currencies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apilayer.com/currency_data/list"
+          },
+          "docs": "Returns the full list of currencies Currencylayer supports along with their\nfull names. Available on every plan including Free.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Rates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Live Exchange Rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apilayer.com/currency_data/live",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free\nplan; any source currency may be selected on Basic plan and above.\n"
+              },
+              {
+                "name": "currencies",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of ISO 4217 currency codes to limit the result set."
+              }
+            ]
+          },
+          "docs": "Returns the most recent exchange rate data. Rates refresh every 60 minutes\non Free and Basic, every 10 minutes on Professional, and every 60 seconds\non Enterprise and above.\n"
+        },
+        {
+          "info": {
+            "name": "Get Historical Exchange Rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apilayer.com/currency_data/historical",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "ISO-8601 date in `YYYY-MM-DD` format (any working day since 1999)."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free\nplan; any source currency may be selected on Basic plan and above.\n"
+              },
+              {
+                "name": "currencies",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of ISO 4217 currency codes to limit the result set."
+              }
+            ]
+          },
+          "docs": "Returns end-of-day historical exchange rates for any date since 1999.\nAvailable on every plan including Free.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Conversion",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Convert Currency Amount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apilayer.com/currency_data/convert",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Three-letter source currency code (ISO 4217)."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Three-letter target currency code (ISO 4217)."
+              },
+              {
+                "name": "amount",
+                "value": "",
+                "type": "query",
+                "description": "Amount to convert."
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Optional historical date (YYYY-MM-DD) to use for the conversion rate."
+              }
+            ]
+          },
+          "docs": "Converts an amount from one currency to another using real-time or historical\nrates. Available on Basic plan and above.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Time Frame",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Time-Frame Exchange Rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apilayer.com/currency_data/timeframe",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the time-frame window (YYYY-MM-DD)."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date for the time-frame window (YYYY-MM-DD)."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free\nplan; any source currency may be selected on Basic plan and above.\n"
+              },
+              {
+                "name": "currencies",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of ISO 4217 currency codes to limit the result set."
+              }
+            ]
+          },
+          "docs": "Returns daily historical exchange rates between two dates of your choice,\nwith a maximum range of 365 days. Available on Enterprise plan and above.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Change",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Currency Change Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apilayer.com/currency_data/change",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the change window (YYYY-MM-DD). Defaults to yesterday."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date for the change window (YYYY-MM-DD). Defaults to today."
+              },
+              {
+                "name": "currencies",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated ISO 4217 currency codes to report on."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free\nplan; any source currency may be selected on Basic plan and above.\n"
+              }
+            ]
+          },
+          "docs": "Returns currency change parameters (start rate, end rate, absolute change,\npercentage change) between two dates for any supported currency pair.\nAvailable on Enterprise Plus plan and above.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
