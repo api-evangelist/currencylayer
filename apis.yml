@@ -46,7 +46,7 @@ apis:
         url: https://docs.apilayer.com/currencylayer/docs/api-documentation
       - type: APIReference
         url: https://apilayer.com/marketplace/currency_data-api
-      - type: Quickstart
+      - type: GettingStarted
         url: https://docs.apilayer.com/currencylayer/docs/getting-started
       - type: Authentication
         url: https://docs.apilayer.com/currencylayer/docs/getting-started
@@ -74,37 +74,37 @@ apis:
         url: json-structure/currencylayer-timeframe-structure.json
       - type: JSONStructure
         url: json-structure/currencylayer-change-structure.json
-      - type: JSON-LD
+      - type: JSONLD
         url: json-ld/currencylayer-context.jsonld
-      - type: Example
+      - type: Examples
         url: examples/currencylayer-listcurrencies-example.json
-      - type: Example
+      - type: Examples
         url: examples/currencylayer-getlive-example.json
-      - type: Example
+      - type: Examples
         url: examples/currencylayer-gethistorical-example.json
-      - type: Example
+      - type: Examples
         url: examples/currencylayer-convertcurrency-example.json
-      - type: Example
+      - type: Examples
         url: examples/currencylayer-gettimeframe-example.json
-      - type: Example
+      - type: Examples
         url: examples/currencylayer-getchange-example.json
       - type: RateLimits
         url: rate-limits/currencylayer-rate-limits.yml
       - type: Pricing
         url: plans/currencylayer-plans-pricing.yml
-      - type: SDK
+      - type: SDKs
         url: https://github.com/said-ali/currencylayer
         title: Python SDK (community)
-      - type: SDK
+      - type: SDKs
         url: https://github.com/phlegx/money-currencylayer-bank
         title: Ruby Gem (Money / community)
-      - type: SDK
+      - type: SDKs
         url: https://github.com/orkhanahmadov/laravel-currencylayer
         title: Laravel Package (community)
-      - type: SDK
+      - type: SDKs
         url: https://github.com/keymusicman/CurrencyLayer4NET
         title: .NET Library (community)
-      - type: SDK
+      - type: SDKs
         url: https://github.com/jfayad/currencylayer
         title: Elixir Library (community)
       - type: CodeExamples
@@ -144,7 +144,7 @@ common:
     url: https://apilayer.com/marketplace/currency_data-api
   - type: Pricing
     url: https://currencylayer.com/product
-  - type: SignUp
+  - type: Signup
     url: https://apilayer.com/signup
   - type: Login
     url: https://apilayer.com/login
