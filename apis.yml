@@ -136,6 +136,10 @@ apis:
         endpoint: /change
         summary: Get Currency Change Data
 common:
+  - type: DomainSecurity
+    url: security/currencylayer-domain-security.yml
+  - type: Authentication
+    url: authentication/currencylayer-authentication.yml
   - type: Website
     url: https://currencylayer.com
   - type: Documentation
