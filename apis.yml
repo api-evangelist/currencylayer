@@ -136,6 +136,8 @@ apis:
         endpoint: /change
         summary: Get Currency Change Data
 common:
+  - type: AgenticAccess
+    url: agentic-access/currencylayer-agentic-access.yml
   - type: DomainSecurity
     url: security/currencylayer-domain-security.yml
   - type: Authentication
