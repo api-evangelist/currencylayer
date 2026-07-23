@@ -1,0 +1,218 @@
+openapi: 3.0.3
+info:
+  title: Currencylayer Change Time Frame API
+  description: 'Currencylayer is a real-time and historical foreign exchange rate JSON API
+
+    delivering bank-grade exchange rate data for 168 world currencies and precious
+
+    metals, sourced from 15+ commercial-grade providers. The API is delivered via
+
+    the APILayer marketplace and the legacy `apilayer.net` endpoint.
+
+
+    Authentication uses the `access_key` query parameter on the legacy endpoint and
+
+    the `apikey` HTTP header on the APILayer marketplace endpoint. The Free plan is
+
+    limited to 100 requests per month and is HTTP-only with USD base; HTTPS,
+
+    arbitrary base currency switching, and the `/convert` endpoint unlock on the
+
+    Basic plan and above. The `/timeframe` endpoint requires the Enterprise plan
+
+    and `/change` requires Enterprise Plus.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Currencylayer Support
+    url: https://currencylayer.com/contact
+  license:
+    name: Commercial
+    url: https://currencylayer.com/terms
+  termsOfService: https://currencylayer.com/terms
+  x-provider: currencylayer
+  x-parent: apilayer
+servers:
+- url: https://api.apilayer.com/currency_data
+  description: APILayer-hosted production endpoint (current, HTTPS, apikey header)
+- url: https://api.currencylayer.com
+  description: Legacy currencylayer.com endpoint (HTTPS, access_key query, paid tiers)
+- url: http://api.currencylayer.com
+  description: Legacy currencylayer.com endpoint (HTTP, free tier)
+security:
+- ApiKeyAuth: []
+- AccessKeyQuery: []
+tags:
+- name: Time Frame
+  description: Daily historical rates between two dates.
+paths:
+  /timeframe:
+    get:
+      operationId: getTimeFrame
+      summary: Get Time-Frame Exchange Rates
+      description: 'Returns daily historical exchange rates between two dates of your choice,
+
+        with a maximum range of 365 days. Available on Enterprise plan and above.
+
+        '
+      tags:
+      - Time Frame
+      parameters:
+      - name: start_date
+        in: query
+        required: true
+        description: Start date for the time-frame window (YYYY-MM-DD).
+        schema:
+          type: string
+          format: date
+          example: '2010-03-01'
+      - name: end_date
+        in: query
+        required: true
+        description: End date for the time-frame window (YYYY-MM-DD).
+        schema:
+          type: string
+          format: date
+          example: '2010-04-01'
+      - $ref: '#/components/parameters/Source'
+      - $ref: '#/components/parameters/Currencies'
+      responses:
+        '200':
+          description: Map of dates to daily rates for the requested window.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeFrameResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+components:
+  responses:
+    Forbidden:
+      description: The requested feature is not included in the current subscription plan.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Missing or invalid `apikey` / `access_key`.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    RateLimited:
+      description: Monthly request quota exhausted or per-minute rate limit hit.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    TimeFrameResponse:
+      type: object
+      required:
+      - success
+      - timeframe
+      - start_date
+      - end_date
+      - source
+      - quotes
+      properties:
+        success:
+          type: boolean
+          example: true
+        terms:
+          type: string
+          format: uri
+          example: https://currencylayer.com/terms
+        privacy:
+          type: string
+          format: uri
+          example: https://currencylayer.com/privacy
+        timeframe:
+          type: boolean
+          example: true
+        start_date:
+          type: string
+          format: date
+          example: '2010-03-01'
+        end_date:
+          type: string
+          format: date
+          example: '2010-04-01'
+        source:
+          type: string
+          example: USD
+        quotes:
+          type: object
+          description: Map of dates to per-currency quotes for that date.
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: number
+          example:
+            '2010-03-01':
+              USDUSD: 1
+              USDGBP: 0.668525
+              USDEUR: 0.738541
+            '2010-03-02':
+              USDUSD: 1
+              USDGBP: 0.668827
+              USDEUR: 0.736145
+    ErrorResponse:
+      type: object
+      required:
+      - success
+      - error
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              example: 104
+              description: "Currencylayer error code. Known codes:\n  101 — Missing or invalid Access Key\n  103 — Non-existent API Function requested\n  104 — Monthly request allowance exceeded\n  105 — Requested function unavailable under current plan\n  106 — Query returned no results\n  404 — Requested resource does not exist\n"
+            type:
+              type: string
+              example: monthly_usage_limit_reached
+            info:
+              type: string
+              example: Your monthly API request volume has been reached. Please upgrade your Subscription Plan.
+  parameters:
+    Source:
+      name: source
+      in: query
+      required: false
+      description: 'Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free
+
+        plan; any source currency may be selected on Basic plan and above.
+
+        '
+      schema:
+        type: string
+        example: USD
+    Currencies:
+      name: currencies
+      in: query
+      required: false
+      description: Comma-separated list of ISO 4217 currency codes to limit the result set.
+      schema:
+        type: string
+        example: AUD,CHF,EUR,GBP,PLN
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: APILayer marketplace API key (https://apilayer.com/marketplace/currency_data-api).
+    AccessKeyQuery:
+      type: apiKey
+      in: query
+      name: access_key
+      description: Legacy Currencylayer access key (https://currencylayer.com/dashboard).

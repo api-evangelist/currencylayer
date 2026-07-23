@@ -1,0 +1,208 @@
+openapi: 3.0.3
+info:
+  title: Currencylayer Change Conversion API
+  description: 'Currencylayer is a real-time and historical foreign exchange rate JSON API
+
+    delivering bank-grade exchange rate data for 168 world currencies and precious
+
+    metals, sourced from 15+ commercial-grade providers. The API is delivered via
+
+    the APILayer marketplace and the legacy `apilayer.net` endpoint.
+
+
+    Authentication uses the `access_key` query parameter on the legacy endpoint and
+
+    the `apikey` HTTP header on the APILayer marketplace endpoint. The Free plan is
+
+    limited to 100 requests per month and is HTTP-only with USD base; HTTPS,
+
+    arbitrary base currency switching, and the `/convert` endpoint unlock on the
+
+    Basic plan and above. The `/timeframe` endpoint requires the Enterprise plan
+
+    and `/change` requires Enterprise Plus.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Currencylayer Support
+    url: https://currencylayer.com/contact
+  license:
+    name: Commercial
+    url: https://currencylayer.com/terms
+  termsOfService: https://currencylayer.com/terms
+  x-provider: currencylayer
+  x-parent: apilayer
+servers:
+- url: https://api.apilayer.com/currency_data
+  description: APILayer-hosted production endpoint (current, HTTPS, apikey header)
+- url: https://api.currencylayer.com
+  description: Legacy currencylayer.com endpoint (HTTPS, access_key query, paid tiers)
+- url: http://api.currencylayer.com
+  description: Legacy currencylayer.com endpoint (HTTP, free tier)
+security:
+- ApiKeyAuth: []
+- AccessKeyQuery: []
+tags:
+- name: Conversion
+  description: On-demand currency amount conversion.
+paths:
+  /convert:
+    get:
+      operationId: convertCurrency
+      summary: Convert Currency Amount
+      description: 'Converts an amount from one currency to another using real-time or historical
+
+        rates. Available on Basic plan and above.
+
+        '
+      tags:
+      - Conversion
+      parameters:
+      - name: from
+        in: query
+        required: true
+        description: Three-letter source currency code (ISO 4217).
+        schema:
+          type: string
+          example: USD
+      - name: to
+        in: query
+        required: true
+        description: Three-letter target currency code (ISO 4217).
+        schema:
+          type: string
+          example: GBP
+      - name: amount
+        in: query
+        required: true
+        description: Amount to convert.
+        schema:
+          type: number
+          example: 10
+      - name: date
+        in: query
+        required: false
+        description: Optional historical date (YYYY-MM-DD) to use for the conversion rate.
+        schema:
+          type: string
+          format: date
+          example: '2005-01-01'
+      responses:
+        '200':
+          description: Converted amount and conversion metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConvertResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+components:
+  responses:
+    Forbidden:
+      description: The requested feature is not included in the current subscription plan.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Missing or invalid `apikey` / `access_key`.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    RateLimited:
+      description: Monthly request quota exhausted or per-minute rate limit hit.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ConvertResponse:
+      type: object
+      required:
+      - success
+      - query
+      - info
+      - result
+      properties:
+        success:
+          type: boolean
+          example: true
+        terms:
+          type: string
+          format: uri
+          example: https://currencylayer.com/terms
+        privacy:
+          type: string
+          format: uri
+          example: https://currencylayer.com/privacy
+        query:
+          type: object
+          properties:
+            from:
+              type: string
+              example: USD
+            to:
+              type: string
+              example: GBP
+            amount:
+              type: number
+              example: 10
+        info:
+          type: object
+          properties:
+            timestamp:
+              type: integer
+              format: int64
+              example: 1430068515
+            quote:
+              type: number
+              example: 0.658443
+        historical:
+          type: boolean
+          example: false
+        date:
+          type: string
+          format: date
+          example: '2005-01-01'
+        result:
+          type: number
+          example: 6.58443
+    ErrorResponse:
+      type: object
+      required:
+      - success
+      - error
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              example: 104
+              description: "Currencylayer error code. Known codes:\n  101 — Missing or invalid Access Key\n  103 — Non-existent API Function requested\n  104 — Monthly request allowance exceeded\n  105 — Requested function unavailable under current plan\n  106 — Query returned no results\n  404 — Requested resource does not exist\n"
+            type:
+              type: string
+              example: monthly_usage_limit_reached
+            info:
+              type: string
+              example: Your monthly API request volume has been reached. Please upgrade your Subscription Plan.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: APILayer marketplace API key (https://apilayer.com/marketplace/currency_data-api).
+    AccessKeyQuery:
+      type: apiKey
+      in: query
+      name: access_key
+      description: Legacy Currencylayer access key (https://currencylayer.com/dashboard).

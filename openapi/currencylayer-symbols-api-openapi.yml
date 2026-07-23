@@ -1,0 +1,145 @@
+openapi: 3.0.3
+info:
+  title: Currencylayer Change Symbols API
+  description: 'Currencylayer is a real-time and historical foreign exchange rate JSON API
+
+    delivering bank-grade exchange rate data for 168 world currencies and precious
+
+    metals, sourced from 15+ commercial-grade providers. The API is delivered via
+
+    the APILayer marketplace and the legacy `apilayer.net` endpoint.
+
+
+    Authentication uses the `access_key` query parameter on the legacy endpoint and
+
+    the `apikey` HTTP header on the APILayer marketplace endpoint. The Free plan is
+
+    limited to 100 requests per month and is HTTP-only with USD base; HTTPS,
+
+    arbitrary base currency switching, and the `/convert` endpoint unlock on the
+
+    Basic plan and above. The `/timeframe` endpoint requires the Enterprise plan
+
+    and `/change` requires Enterprise Plus.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Currencylayer Support
+    url: https://currencylayer.com/contact
+  license:
+    name: Commercial
+    url: https://currencylayer.com/terms
+  termsOfService: https://currencylayer.com/terms
+  x-provider: currencylayer
+  x-parent: apilayer
+servers:
+- url: https://api.apilayer.com/currency_data
+  description: APILayer-hosted production endpoint (current, HTTPS, apikey header)
+- url: https://api.currencylayer.com
+  description: Legacy currencylayer.com endpoint (HTTPS, access_key query, paid tiers)
+- url: http://api.currencylayer.com
+  description: Legacy currencylayer.com endpoint (HTTP, free tier)
+security:
+- ApiKeyAuth: []
+- AccessKeyQuery: []
+tags:
+- name: Symbols
+  description: Discovery of supported currency symbols.
+paths:
+  /list:
+    get:
+      operationId: listCurrencies
+      summary: List Supported Currencies
+      description: 'Returns the full list of currencies Currencylayer supports along with their
+
+        full names. Available on every plan including Free.
+
+        '
+      tags:
+      - Symbols
+      responses:
+        '200':
+          description: A map of ISO 4217 currency codes to currency names.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrenciesResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+components:
+  responses:
+    RateLimited:
+      description: Monthly request quota exhausted or per-minute rate limit hit.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Missing or invalid `apikey` / `access_key`.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    CurrenciesResponse:
+      type: object
+      required:
+      - success
+      - currencies
+      properties:
+        success:
+          type: boolean
+          example: true
+        terms:
+          type: string
+          format: uri
+          example: https://currencylayer.com/terms
+        privacy:
+          type: string
+          format: uri
+          example: https://currencylayer.com/privacy
+        currencies:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            AED: United Arab Emirates Dirham
+            AFN: Afghan Afghani
+            ALL: Albanian Lek
+            USD: United States Dollar
+    ErrorResponse:
+      type: object
+      required:
+      - success
+      - error
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              example: 104
+              description: "Currencylayer error code. Known codes:\n  101 — Missing or invalid Access Key\n  103 — Non-existent API Function requested\n  104 — Monthly request allowance exceeded\n  105 — Requested function unavailable under current plan\n  106 — Query returned no results\n  404 — Requested resource does not exist\n"
+            type:
+              type: string
+              example: monthly_usage_limit_reached
+            info:
+              type: string
+              example: Your monthly API request volume has been reached. Please upgrade your Subscription Plan.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: APILayer marketplace API key (https://apilayer.com/marketplace/currency_data-api).
+    AccessKeyQuery:
+      type: apiKey
+      in: query
+      name: access_key
+      description: Legacy Currencylayer access key (https://currencylayer.com/dashboard).
