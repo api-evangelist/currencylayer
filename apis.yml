@@ -6,6 +6,19 @@ description: >-
   through the APILayer marketplace under a freemium subscription model with refresh cadence ranging from hourly on Free
   up to 60 seconds on Enterprise tiers.
 url: https://currencylayer.com
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-05-28'
 modified: '2026-05-29'
@@ -15,7 +28,7 @@ x-type: company
 x-tier: 3
 x-tier-reason: bulk-registered-from-public-apis
 x-parent: apilayer
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/currencylayer.png
 tags:
   - Currency Exchange
   - Foreign Exchange
@@ -29,113 +42,379 @@ tags:
   - APILayer
   - Public APIs
 apis:
-  - aid: currencylayer:currencylayer-api
-    name: Currencylayer API
-    description: >-
-      The Currencylayer REST API exposes six operations covering currency symbol discovery, real-time and historical
-      rates, on-demand currency conversion, daily time-frame windows, and change reporting. Authentication is via the
-      APILayer `apikey` header on the modern endpoint or the legacy `access_key` query parameter.
-    humanURL: https://currencylayer.com/documentation
-    baseURL: https://api.apilayer.com/currency_data
-    tags:
-      - Currency Exchange
-      - Foreign Exchange
-      - APILayer
-    properties:
-      - type: Documentation
-        url: https://docs.apilayer.com/currencylayer/docs/api-documentation
-      - type: APIReference
-        url: https://apilayer.com/marketplace/currency_data-api
-      - type: GettingStarted
-        url: https://docs.apilayer.com/currencylayer/docs/getting-started
-      - type: Authentication
-        url: https://docs.apilayer.com/currencylayer/docs/getting-started
-      - type: OpenAPI
-        url: openapi/currencylayer-openapi.yml
-      - type: JSONSchema
-        url: json-schema/currencylayer-quotes-schema.json
-      - type: JSONSchema
-        url: json-schema/currencylayer-currencies-schema.json
-      - type: JSONSchema
-        url: json-schema/currencylayer-convert-schema.json
-      - type: JSONSchema
-        url: json-schema/currencylayer-timeframe-schema.json
-      - type: JSONSchema
-        url: json-schema/currencylayer-change-schema.json
-      - type: JSONSchema
-        url: json-schema/currencylayer-error-schema.json
-      - type: JSONStructure
-        url: json-structure/currencylayer-quotes-structure.json
-      - type: JSONStructure
-        url: json-structure/currencylayer-currencies-structure.json
-      - type: JSONStructure
-        url: json-structure/currencylayer-convert-structure.json
-      - type: JSONStructure
-        url: json-structure/currencylayer-timeframe-structure.json
-      - type: JSONStructure
-        url: json-structure/currencylayer-change-structure.json
-      - type: JSONLD
-        url: json-ld/currencylayer-context.jsonld
-      - type: Examples
-        url: examples/currencylayer-listcurrencies-example.json
-      - type: Examples
-        url: examples/currencylayer-getlive-example.json
-      - type: Examples
-        url: examples/currencylayer-gethistorical-example.json
-      - type: Examples
-        url: examples/currencylayer-convertcurrency-example.json
-      - type: Examples
-        url: examples/currencylayer-gettimeframe-example.json
-      - type: Examples
-        url: examples/currencylayer-getchange-example.json
-      - type: RateLimits
-        url: rate-limits/currencylayer-rate-limits.yml
-      - type: Pricing
-        url: plans/currencylayer-plans-pricing.yml
-      - type: SDKs
-        url: https://github.com/said-ali/currencylayer
-        title: Python SDK (community)
-      - type: SDKs
-        url: https://github.com/phlegx/money-currencylayer-bank
-        title: Ruby Gem (Money / community)
-      - type: SDKs
-        url: https://github.com/orkhanahmadov/laravel-currencylayer
-        title: Laravel Package (community)
-      - type: SDKs
-        url: https://github.com/keymusicman/CurrencyLayer4NET
-        title: .NET Library (community)
-      - type: SDKs
-        url: https://github.com/jfayad/currencylayer
-        title: Elixir Library (community)
-      - type: CodeExamples
-        url: https://github.com/apilayer/currencylayer-API
-        title: Reference Java Demo (apilayer, archived)
-      - type: CodeExamples
-        url: https://github.com/apilayer/currency-converter-app
-        title: Currency Converter App (apilayer)
-      - type: CodeExamples
-        url: https://github.com/apilayer/currency-conversion
-        title: Currency Conversion Sample (apilayer, archived)
-    operations:
-      - method: GET
-        endpoint: /list
-        summary: List Supported Currencies
-      - method: GET
-        endpoint: /live
-        summary: Get Live Exchange Rates
-      - method: GET
-        endpoint: /historical
-        summary: Get Historical Exchange Rates
-      - method: GET
-        endpoint: /convert
-        summary: Convert Currency Amount
-      - method: GET
-        endpoint: /timeframe
-        summary: Get Time-Frame Exchange Rates
-      - method: GET
-        endpoint: /change
-        summary: Get Currency Change Data
+- aid: currencylayer:currencylayer-change-api
+  name: Currencylayer Change API
+  description: Currency change (margin and percentage) analysis between two dates.
+  humanURL: https://currencylayer.com/documentation
+  baseURL: https://api.apilayer.com/currency_data
+  tags:
+  - Change
+  properties:
+  - type: OpenAPI
+    url: openapi/currencylayer-change-api-openapi.yml
+  - type: Documentation
+    url: https://docs.apilayer.com/currencylayer/docs/api-documentation
+  - type: APIReference
+    url: https://apilayer.com/marketplace/currency_data-api
+  - type: GettingStarted
+    url: https://docs.apilayer.com/currencylayer/docs/getting-started
+  - type: Authentication
+    url: https://docs.apilayer.com/currencylayer/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/currencylayer-quotes-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-currencies-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-convert-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-timeframe-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-change-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-error-schema.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-quotes-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-currencies-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-convert-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-timeframe-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-change-structure.json
+  - type: JSONLD
+    url: json-ld/currencylayer-context.jsonld
+  - type: Examples
+    url: examples/currencylayer-listcurrencies-example.json
+  - type: Examples
+    url: examples/currencylayer-getlive-example.json
+  - type: Examples
+    url: examples/currencylayer-gethistorical-example.json
+  - type: Examples
+    url: examples/currencylayer-convertcurrency-example.json
+  - type: Examples
+    url: examples/currencylayer-gettimeframe-example.json
+  - type: Examples
+    url: examples/currencylayer-getchange-example.json
+  - type: RateLimits
+    url: rate-limits/currencylayer-rate-limits.yml
+  - type: Pricing
+    url: plans/currencylayer-plans-pricing.yml
+  - type: SDKs
+    url: https://github.com/said-ali/currencylayer
+  - type: SDKs
+    url: https://github.com/phlegx/money-currencylayer-bank
+  - type: SDKs
+    url: https://github.com/orkhanahmadov/laravel-currencylayer
+  - type: SDKs
+    url: https://github.com/keymusicman/CurrencyLayer4NET
+  - type: SDKs
+    url: https://github.com/jfayad/currencylayer
+  - type: CodeExamples
+    url: https://github.com/apilayer/currencylayer-API
+  - type: CodeExamples
+    url: https://github.com/apilayer/currency-converter-app
+  - type: CodeExamples
+    url: https://github.com/apilayer/currency-conversion
+- aid: currencylayer:currencylayer-conversion-api
+  name: Currencylayer Conversion API
+  description: On-demand currency amount conversion.
+  humanURL: https://currencylayer.com/documentation
+  baseURL: https://api.apilayer.com/currency_data
+  tags:
+  - Conversion
+  properties:
+  - type: OpenAPI
+    url: openapi/currencylayer-conversion-api-openapi.yml
+  - type: Documentation
+    url: https://docs.apilayer.com/currencylayer/docs/api-documentation
+  - type: APIReference
+    url: https://apilayer.com/marketplace/currency_data-api
+  - type: GettingStarted
+    url: https://docs.apilayer.com/currencylayer/docs/getting-started
+  - type: Authentication
+    url: https://docs.apilayer.com/currencylayer/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/currencylayer-quotes-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-currencies-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-convert-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-timeframe-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-change-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-error-schema.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-quotes-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-currencies-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-convert-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-timeframe-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-change-structure.json
+  - type: JSONLD
+    url: json-ld/currencylayer-context.jsonld
+  - type: Examples
+    url: examples/currencylayer-listcurrencies-example.json
+  - type: Examples
+    url: examples/currencylayer-getlive-example.json
+  - type: Examples
+    url: examples/currencylayer-gethistorical-example.json
+  - type: Examples
+    url: examples/currencylayer-convertcurrency-example.json
+  - type: Examples
+    url: examples/currencylayer-gettimeframe-example.json
+  - type: Examples
+    url: examples/currencylayer-getchange-example.json
+  - type: RateLimits
+    url: rate-limits/currencylayer-rate-limits.yml
+  - type: Pricing
+    url: plans/currencylayer-plans-pricing.yml
+  - type: SDKs
+    url: https://github.com/said-ali/currencylayer
+  - type: SDKs
+    url: https://github.com/phlegx/money-currencylayer-bank
+  - type: SDKs
+    url: https://github.com/orkhanahmadov/laravel-currencylayer
+  - type: SDKs
+    url: https://github.com/keymusicman/CurrencyLayer4NET
+  - type: SDKs
+    url: https://github.com/jfayad/currencylayer
+  - type: CodeExamples
+    url: https://github.com/apilayer/currencylayer-API
+  - type: CodeExamples
+    url: https://github.com/apilayer/currency-converter-app
+  - type: CodeExamples
+    url: https://github.com/apilayer/currency-conversion
+- aid: currencylayer:currencylayer-rates-api
+  name: Currencylayer Rates API
+  description: Real-time and historical foreign exchange rate operations.
+  humanURL: https://currencylayer.com/documentation
+  baseURL: https://api.apilayer.com/currency_data
+  tags:
+  - Rates
+  properties:
+  - type: OpenAPI
+    url: openapi/currencylayer-rates-api-openapi.yml
+  - type: Documentation
+    url: https://docs.apilayer.com/currencylayer/docs/api-documentation
+  - type: APIReference
+    url: https://apilayer.com/marketplace/currency_data-api
+  - type: GettingStarted
+    url: https://docs.apilayer.com/currencylayer/docs/getting-started
+  - type: Authentication
+    url: https://docs.apilayer.com/currencylayer/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/currencylayer-quotes-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-currencies-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-convert-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-timeframe-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-change-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-error-schema.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-quotes-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-currencies-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-convert-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-timeframe-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-change-structure.json
+  - type: JSONLD
+    url: json-ld/currencylayer-context.jsonld
+  - type: Examples
+    url: examples/currencylayer-listcurrencies-example.json
+  - type: Examples
+    url: examples/currencylayer-getlive-example.json
+  - type: Examples
+    url: examples/currencylayer-gethistorical-example.json
+  - type: Examples
+    url: examples/currencylayer-convertcurrency-example.json
+  - type: Examples
+    url: examples/currencylayer-gettimeframe-example.json
+  - type: Examples
+    url: examples/currencylayer-getchange-example.json
+  - type: RateLimits
+    url: rate-limits/currencylayer-rate-limits.yml
+  - type: Pricing
+    url: plans/currencylayer-plans-pricing.yml
+  - type: SDKs
+    url: https://github.com/said-ali/currencylayer
+  - type: SDKs
+    url: https://github.com/phlegx/money-currencylayer-bank
+  - type: SDKs
+    url: https://github.com/orkhanahmadov/laravel-currencylayer
+  - type: SDKs
+    url: https://github.com/keymusicman/CurrencyLayer4NET
+  - type: SDKs
+    url: https://github.com/jfayad/currencylayer
+  - type: CodeExamples
+    url: https://github.com/apilayer/currencylayer-API
+  - type: CodeExamples
+    url: https://github.com/apilayer/currency-converter-app
+  - type: CodeExamples
+    url: https://github.com/apilayer/currency-conversion
+- aid: currencylayer:currencylayer-symbols-api
+  name: Currencylayer Symbols API
+  description: Discovery of supported currency symbols.
+  humanURL: https://currencylayer.com/documentation
+  baseURL: https://api.apilayer.com/currency_data
+  tags:
+  - Symbols
+  properties:
+  - type: OpenAPI
+    url: openapi/currencylayer-symbols-api-openapi.yml
+  - type: Documentation
+    url: https://docs.apilayer.com/currencylayer/docs/api-documentation
+  - type: APIReference
+    url: https://apilayer.com/marketplace/currency_data-api
+  - type: GettingStarted
+    url: https://docs.apilayer.com/currencylayer/docs/getting-started
+  - type: Authentication
+    url: https://docs.apilayer.com/currencylayer/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/currencylayer-quotes-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-currencies-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-convert-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-timeframe-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-change-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-error-schema.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-quotes-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-currencies-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-convert-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-timeframe-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-change-structure.json
+  - type: JSONLD
+    url: json-ld/currencylayer-context.jsonld
+  - type: Examples
+    url: examples/currencylayer-listcurrencies-example.json
+  - type: Examples
+    url: examples/currencylayer-getlive-example.json
+  - type: Examples
+    url: examples/currencylayer-gethistorical-example.json
+  - type: Examples
+    url: examples/currencylayer-convertcurrency-example.json
+  - type: Examples
+    url: examples/currencylayer-gettimeframe-example.json
+  - type: Examples
+    url: examples/currencylayer-getchange-example.json
+  - type: RateLimits
+    url: rate-limits/currencylayer-rate-limits.yml
+  - type: Pricing
+    url: plans/currencylayer-plans-pricing.yml
+  - type: SDKs
+    url: https://github.com/said-ali/currencylayer
+  - type: SDKs
+    url: https://github.com/phlegx/money-currencylayer-bank
+  - type: SDKs
+    url: https://github.com/orkhanahmadov/laravel-currencylayer
+  - type: SDKs
+    url: https://github.com/keymusicman/CurrencyLayer4NET
+  - type: SDKs
+    url: https://github.com/jfayad/currencylayer
+  - type: CodeExamples
+    url: https://github.com/apilayer/currencylayer-API
+  - type: CodeExamples
+    url: https://github.com/apilayer/currency-converter-app
+  - type: CodeExamples
+    url: https://github.com/apilayer/currency-conversion
+- aid: currencylayer:currencylayer-time-frame-api
+  name: Currencylayer Time Frame API
+  description: Daily historical rates between two dates.
+  humanURL: https://currencylayer.com/documentation
+  baseURL: https://api.apilayer.com/currency_data
+  tags:
+  - Time Frame
+  properties:
+  - type: OpenAPI
+    url: openapi/currencylayer-time-frame-api-openapi.yml
+  - type: Documentation
+    url: https://docs.apilayer.com/currencylayer/docs/api-documentation
+  - type: APIReference
+    url: https://apilayer.com/marketplace/currency_data-api
+  - type: GettingStarted
+    url: https://docs.apilayer.com/currencylayer/docs/getting-started
+  - type: Authentication
+    url: https://docs.apilayer.com/currencylayer/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/currencylayer-quotes-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-currencies-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-convert-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-timeframe-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-change-schema.json
+  - type: JSONSchema
+    url: json-schema/currencylayer-error-schema.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-quotes-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-currencies-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-convert-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-timeframe-structure.json
+  - type: JSONStructure
+    url: json-structure/currencylayer-change-structure.json
+  - type: JSONLD
+    url: json-ld/currencylayer-context.jsonld
+  - type: Examples
+    url: examples/currencylayer-listcurrencies-example.json
+  - type: Examples
+    url: examples/currencylayer-getlive-example.json
+  - type: Examples
+    url: examples/currencylayer-gethistorical-example.json
+  - type: Examples
+    url: examples/currencylayer-convertcurrency-example.json
+  - type: Examples
+    url: examples/currencylayer-gettimeframe-example.json
+  - type: Examples
+    url: examples/currencylayer-getchange-example.json
+  - type: RateLimits
+    url: rate-limits/currencylayer-rate-limits.yml
+  - type: Pricing
+    url: plans/currencylayer-plans-pricing.yml
+  - type: SDKs
+    url: https://github.com/said-ali/currencylayer
+  - type: SDKs
+    url: https://github.com/phlegx/money-currencylayer-bank
+  - type: SDKs
+    url: https://github.com/orkhanahmadov/laravel-currencylayer
+  - type: SDKs
+    url: https://github.com/keymusicman/CurrencyLayer4NET
+  - type: SDKs
+    url: https://github.com/jfayad/currencylayer
+  - type: CodeExamples
+    url: https://github.com/apilayer/currencylayer-API
+  - type: CodeExamples
+    url: https://github.com/apilayer/currency-converter-app
+  - type: CodeExamples
+    url: https://github.com/apilayer/currency-conversion
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/currencylayer/overview
   - type: AgenticAccess
     url: agentic-access/currencylayer-agentic-access.yml
   - type: DomainSecurity
