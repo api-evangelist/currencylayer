@@ -1,0 +1,542 @@
+{
+  "info": {
+    "_postman_id": "07a06e00-c95d-4a62-8706-3e1a2ae852dc",
+    "name": "Currencylayer Change Rates API",
+    "description": "Currencylayer is a real-time and historical foreign exchange rate JSON API\ndelivering bank-grade exchange rate data for 168 world currencies and precious\nmetals, sourced from 15+ commercial-grade providers. The API is delivered via\nthe APILayer marketplace and the legacy `apilayer.net` endpoint.\n\nAuthentication uses the `access_key` query parameter on the legacy endpoint and\nthe `apikey` HTTP header on the APILayer marketplace endpoint. The Free plan is\nlimited to 100 requests per month and is HTTP-only with USD base; HTTPS,\narbitrary base currency switching, and the `/convert` endpoint unlock on the\nBasic plan and above. The `/timeframe` endpoint requires the Enterprise plan\nand `/change` requires Enterprise Plus.\n\n\nContact Support:\n Name: Currencylayer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:28:49.000Z",
+    "updatedAt": "2026-07-28T01:28:49.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-07a06e00-c95d-4a62-8706-3e1a2ae852dc"
+  },
+  "item": [
+    {
+      "name": "live",
+      "item": [
+        {
+          "name": "Get Live Exchange Rates",
+          "id": "93e5a29f-56f7-44dc-996d-c57c83f1db1a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/live?source=<string>&currencies=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "live"
+              ],
+              "query": [
+                {
+                  "description": "Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free\nplan; any source currency may be selected on Basic plan and above.\n",
+                  "key": "source",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Comma-separated list of ISO 4217 currency codes to limit the result set.",
+                  "key": "currencies",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Returns the most recent exchange rate data. Rates refresh every 60 minutes\non Free and Basic, every 10 minutes on Professional, and every 60 seconds\non Enterprise and above.\n"
+          },
+          "response": [
+            {
+              "id": "1f697cce-d8de-4d28-b872-b3e08d13ab30",
+              "name": "Latest rates anchored to the requested source currency.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/live?source=<string>&currencies=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "live"
+                  ],
+                  "query": [
+                    {
+                      "description": "Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free\nplan; any source currency may be selected on Basic plan and above.\n",
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of ISO 4217 currency codes to limit the result set.",
+                      "key": "currencies",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"timestamp\": \"<long>\",\n  \"source\": \"<string>\",\n  \"quotes\": {\n    \"consequat_8\": \"<number>\",\n    \"cillum_1f\": \"<number>\",\n    \"laboris36\": \"<number>\"\n  },\n  \"terms\": \"<uri>\",\n  \"privacy\": \"<uri>\",\n  \"historical\": \"<boolean>\",\n  \"date\": \"<date>\"\n}",
+              "createdAt": "2026-07-28T01:28:50.000Z",
+              "updatedAt": "2026-07-28T01:28:50.000Z",
+              "uid": "35240-1f697cce-d8de-4d28-b872-b3e08d13ab30"
+            },
+            {
+              "id": "a8cbf647-76b9-4da4-b28f-c4469dedc0a0",
+              "name": "Missing or invalid `apikey` / `access_key`.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/live?source=<string>&currencies=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "live"
+                  ],
+                  "query": [
+                    {
+                      "description": "Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free\nplan; any source currency may be selected on Basic plan and above.\n",
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of ISO 4217 currency codes to limit the result set.",
+                      "key": "currencies",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"info\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:28:50.000Z",
+              "updatedAt": "2026-07-28T01:28:50.000Z",
+              "uid": "35240-a8cbf647-76b9-4da4-b28f-c4469dedc0a0"
+            },
+            {
+              "id": "57b55267-4d88-48fa-bb62-31e3a58527ae",
+              "name": "The requested feature is not included in the current subscription plan.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/live?source=<string>&currencies=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "live"
+                  ],
+                  "query": [
+                    {
+                      "description": "Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free\nplan; any source currency may be selected on Basic plan and above.\n",
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of ISO 4217 currency codes to limit the result set.",
+                      "key": "currencies",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"info\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:28:50.000Z",
+              "updatedAt": "2026-07-28T01:28:50.000Z",
+              "uid": "35240-57b55267-4d88-48fa-bb62-31e3a58527ae"
+            },
+            {
+              "id": "a463049f-c267-4d85-a2fd-8aaceef5d402",
+              "name": "Monthly request quota exhausted or per-minute rate limit hit.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/live?source=<string>&currencies=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "live"
+                  ],
+                  "query": [
+                    {
+                      "description": "Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free\nplan; any source currency may be selected on Basic plan and above.\n",
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of ISO 4217 currency codes to limit the result set.",
+                      "key": "currencies",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"info\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:28:50.000Z",
+              "updatedAt": "2026-07-28T01:28:50.000Z",
+              "uid": "35240-a463049f-c267-4d85-a2fd-8aaceef5d402"
+            }
+          ],
+          "createdAt": "2026-07-28T01:28:50.000Z",
+          "updatedAt": "2026-07-28T01:28:50.000Z",
+          "uid": "35240-93e5a29f-56f7-44dc-996d-c57c83f1db1a"
+        }
+      ],
+      "id": "0e2c68c5-1c55-4b89-9e0b-72e3f43afb9e",
+      "createdAt": "2026-07-28T01:28:50.000Z",
+      "updatedAt": "2026-07-28T01:28:50.000Z",
+      "uid": "35240-0e2c68c5-1c55-4b89-9e0b-72e3f43afb9e"
+    },
+    {
+      "name": "historical",
+      "item": [
+        {
+          "name": "Get Historical Exchange Rates",
+          "id": "6a417773-5f81-45fb-ad41-a8a30573c319",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/historical?date=<date>&source=<string>&currencies=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "historical"
+              ],
+              "query": [
+                {
+                  "description": "(Required) ISO-8601 date in `YYYY-MM-DD` format (any working day since 1999).",
+                  "key": "date",
+                  "value": "<date>"
+                },
+                {
+                  "description": "Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free\nplan; any source currency may be selected on Basic plan and above.\n",
+                  "key": "source",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Comma-separated list of ISO 4217 currency codes to limit the result set.",
+                  "key": "currencies",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Returns end-of-day historical exchange rates for any date since 1999.\nAvailable on every plan including Free.\n"
+          },
+          "response": [
+            {
+              "id": "00a17dcd-343f-4d9a-8823-f07862ccdf54",
+              "name": "Historical end-of-day rates for the requested date.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/historical?date=<date>&source=<string>&currencies=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "historical"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ISO-8601 date in `YYYY-MM-DD` format (any working day since 1999).",
+                      "key": "date",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free\nplan; any source currency may be selected on Basic plan and above.\n",
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of ISO 4217 currency codes to limit the result set.",
+                      "key": "currencies",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"timestamp\": \"<long>\",\n  \"source\": \"<string>\",\n  \"quotes\": {\n    \"consequat_8\": \"<number>\",\n    \"cillum_1f\": \"<number>\",\n    \"laboris36\": \"<number>\"\n  },\n  \"terms\": \"<uri>\",\n  \"privacy\": \"<uri>\",\n  \"historical\": \"<boolean>\",\n  \"date\": \"<date>\"\n}",
+              "createdAt": "2026-07-28T01:28:50.000Z",
+              "updatedAt": "2026-07-28T01:28:50.000Z",
+              "uid": "35240-00a17dcd-343f-4d9a-8823-f07862ccdf54"
+            },
+            {
+              "id": "24266677-eaa8-4849-83a3-0ffc39d4308e",
+              "name": "Missing or invalid `apikey` / `access_key`.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/historical?date=<date>&source=<string>&currencies=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "historical"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ISO-8601 date in `YYYY-MM-DD` format (any working day since 1999).",
+                      "key": "date",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free\nplan; any source currency may be selected on Basic plan and above.\n",
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of ISO 4217 currency codes to limit the result set.",
+                      "key": "currencies",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"info\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:28:50.000Z",
+              "updatedAt": "2026-07-28T01:28:50.000Z",
+              "uid": "35240-24266677-eaa8-4849-83a3-0ffc39d4308e"
+            },
+            {
+              "id": "dbc151c6-222d-4942-9c04-d14df9e15faa",
+              "name": "Monthly request quota exhausted or per-minute rate limit hit.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/historical?date=<date>&source=<string>&currencies=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "historical"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ISO-8601 date in `YYYY-MM-DD` format (any working day since 1999).",
+                      "key": "date",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free\nplan; any source currency may be selected on Basic plan and above.\n",
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of ISO 4217 currency codes to limit the result set.",
+                      "key": "currencies",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"info\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:28:50.000Z",
+              "updatedAt": "2026-07-28T01:28:50.000Z",
+              "uid": "35240-dbc151c6-222d-4942-9c04-d14df9e15faa"
+            }
+          ],
+          "createdAt": "2026-07-28T01:28:50.000Z",
+          "updatedAt": "2026-07-28T01:28:50.000Z",
+          "uid": "35240-6a417773-5f81-45fb-ad41-a8a30573c319"
+        }
+      ],
+      "id": "4fcf931b-620e-457d-8114-34d9ba25d681",
+      "createdAt": "2026-07-28T01:28:50.000Z",
+      "updatedAt": "2026-07-28T01:28:50.000Z",
+      "uid": "35240-4fcf931b-620e-457d-8114-34d9ba25d681"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.apilayer.com/currency_data"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "provider": "currencylayer",
+  "sources": [
+    "currencylayer-change-api-openapi.yml",
+    "currencylayer-conversion-api-openapi.yml",
+    "currencylayer-rates-api-openapi.yml",
+    "currencylayer-symbols-api-openapi.yml",
+    "currencylayer-time-frame-api-openapi.yml"
+  ],
+  "outputs": [
+    "currencylayer-change-api-openapi.yml",
+    "currencylayer-conversion-api-openapi.yml",
+    "currencylayer-rates-api-openapi.yml",
+    "currencylayer-symbols-api-openapi.yml",
+    "currencylayer-time-frame-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

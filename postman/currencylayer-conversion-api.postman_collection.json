@@ -1,0 +1,358 @@
+{
+  "info": {
+    "_postman_id": "f6bf4035-fdf6-4f40-863b-85ac4b1766fe",
+    "name": "Currencylayer Change Conversion API",
+    "description": "Currencylayer is a real-time and historical foreign exchange rate JSON API\ndelivering bank-grade exchange rate data for 168 world currencies and precious\nmetals, sourced from 15+ commercial-grade providers. The API is delivered via\nthe APILayer marketplace and the legacy `apilayer.net` endpoint.\n\nAuthentication uses the `access_key` query parameter on the legacy endpoint and\nthe `apikey` HTTP header on the APILayer marketplace endpoint. The Free plan is\nlimited to 100 requests per month and is HTTP-only with USD base; HTTPS,\narbitrary base currency switching, and the `/convert` endpoint unlock on the\nBasic plan and above. The `/timeframe` endpoint requires the Enterprise plan\nand `/change` requires Enterprise Plus.\n\n\nContact Support:\n Name: Currencylayer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:28:48.000Z",
+    "updatedAt": "2026-07-28T01:28:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f6bf4035-fdf6-4f40-863b-85ac4b1766fe"
+  },
+  "item": [
+    {
+      "name": "convert",
+      "item": [
+        {
+          "name": "Convert Currency Amount",
+          "id": "d311140a-5a88-40df-ab9d-4b0920199f6d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/convert?from=<string>&to=<string>&amount=<number>&date=<date>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "convert"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Three-letter source currency code (ISO 4217).",
+                  "key": "from",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) Three-letter target currency code (ISO 4217).",
+                  "key": "to",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) Amount to convert.",
+                  "key": "amount",
+                  "value": "<number>"
+                },
+                {
+                  "description": "Optional historical date (YYYY-MM-DD) to use for the conversion rate.",
+                  "key": "date",
+                  "value": "<date>"
+                }
+              ]
+            },
+            "description": "Converts an amount from one currency to another using real-time or historical\nrates. Available on Basic plan and above.\n"
+          },
+          "response": [
+            {
+              "id": "185c39fe-39e4-4e0a-ae90-91582272d7bc",
+              "name": "Converted amount and conversion metadata.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/convert?from=<string>&to=<string>&amount=<number>&date=<date>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "convert"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Three-letter source currency code (ISO 4217).",
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Three-letter target currency code (ISO 4217).",
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Amount to convert.",
+                      "key": "amount",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Optional historical date (YYYY-MM-DD) to use for the conversion rate.",
+                      "key": "date",
+                      "value": "<date>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"query\": {\n    \"from\": \"<string>\",\n    \"to\": \"<string>\",\n    \"amount\": \"<number>\"\n  },\n  \"info\": {\n    \"timestamp\": \"<long>\",\n    \"quote\": \"<number>\"\n  },\n  \"result\": \"<number>\",\n  \"terms\": \"<uri>\",\n  \"privacy\": \"<uri>\",\n  \"historical\": \"<boolean>\",\n  \"date\": \"<date>\"\n}",
+              "createdAt": "2026-07-28T01:28:49.000Z",
+              "updatedAt": "2026-07-28T01:28:49.000Z",
+              "uid": "35240-185c39fe-39e4-4e0a-ae90-91582272d7bc"
+            },
+            {
+              "id": "12c805c6-2d18-41ed-8ad9-d3f3fae42bae",
+              "name": "Missing or invalid `apikey` / `access_key`.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/convert?from=<string>&to=<string>&amount=<number>&date=<date>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "convert"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Three-letter source currency code (ISO 4217).",
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Three-letter target currency code (ISO 4217).",
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Amount to convert.",
+                      "key": "amount",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Optional historical date (YYYY-MM-DD) to use for the conversion rate.",
+                      "key": "date",
+                      "value": "<date>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"info\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:28:49.000Z",
+              "updatedAt": "2026-07-28T01:28:49.000Z",
+              "uid": "35240-12c805c6-2d18-41ed-8ad9-d3f3fae42bae"
+            },
+            {
+              "id": "068e72d4-7933-4ac0-b38c-5fbe32101322",
+              "name": "The requested feature is not included in the current subscription plan.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/convert?from=<string>&to=<string>&amount=<number>&date=<date>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "convert"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Three-letter source currency code (ISO 4217).",
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Three-letter target currency code (ISO 4217).",
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Amount to convert.",
+                      "key": "amount",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Optional historical date (YYYY-MM-DD) to use for the conversion rate.",
+                      "key": "date",
+                      "value": "<date>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"info\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:28:49.000Z",
+              "updatedAt": "2026-07-28T01:28:49.000Z",
+              "uid": "35240-068e72d4-7933-4ac0-b38c-5fbe32101322"
+            },
+            {
+              "id": "6ad81b12-18ca-4ebd-bec7-ffb45a045bce",
+              "name": "Monthly request quota exhausted or per-minute rate limit hit.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/convert?from=<string>&to=<string>&amount=<number>&date=<date>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "convert"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Three-letter source currency code (ISO 4217).",
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Three-letter target currency code (ISO 4217).",
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Amount to convert.",
+                      "key": "amount",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Optional historical date (YYYY-MM-DD) to use for the conversion rate.",
+                      "key": "date",
+                      "value": "<date>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"info\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:28:49.000Z",
+              "updatedAt": "2026-07-28T01:28:49.000Z",
+              "uid": "35240-6ad81b12-18ca-4ebd-bec7-ffb45a045bce"
+            }
+          ],
+          "createdAt": "2026-07-28T01:28:49.000Z",
+          "updatedAt": "2026-07-28T01:28:49.000Z",
+          "uid": "35240-d311140a-5a88-40df-ab9d-4b0920199f6d"
+        }
+      ],
+      "id": "6a81d4ba-e408-40a3-86ed-243a9be7b1ee",
+      "createdAt": "2026-07-28T01:28:49.000Z",
+      "updatedAt": "2026-07-28T01:28:49.000Z",
+      "uid": "35240-6a81d4ba-e408-40a3-86ed-243a9be7b1ee"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.apilayer.com/currency_data"
+    }
+  ]
+}

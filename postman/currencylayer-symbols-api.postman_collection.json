@@ -1,0 +1,206 @@
+{
+  "info": {
+    "_postman_id": "587c9a0a-249d-45fa-8a77-4efa35fd1f1b",
+    "name": "Currencylayer Change Symbols API",
+    "description": "Currencylayer is a real-time and historical foreign exchange rate JSON API\ndelivering bank-grade exchange rate data for 168 world currencies and precious\nmetals, sourced from 15+ commercial-grade providers. The API is delivered via\nthe APILayer marketplace and the legacy `apilayer.net` endpoint.\n\nAuthentication uses the `access_key` query parameter on the legacy endpoint and\nthe `apikey` HTTP header on the APILayer marketplace endpoint. The Free plan is\nlimited to 100 requests per month and is HTTP-only with USD base; HTTPS,\narbitrary base currency switching, and the `/convert` endpoint unlock on the\nBasic plan and above. The `/timeframe` endpoint requires the Enterprise plan\nand `/change` requires Enterprise Plus.\n\n\nContact Support:\n Name: Currencylayer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:29:07.000Z",
+    "updatedAt": "2026-07-28T01:29:07.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-587c9a0a-249d-45fa-8a77-4efa35fd1f1b"
+  },
+  "item": [
+    {
+      "name": "list",
+      "item": [
+        {
+          "name": "List Supported Currencies",
+          "id": "176c5528-0c70-49e3-a00d-421f16babd7d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/list",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "list"
+              ]
+            },
+            "description": "Returns the full list of currencies Currencylayer supports along with their\nfull names. Available on every plan including Free.\n"
+          },
+          "response": [
+            {
+              "id": "6902b229-c16b-4308-8a25-46565534dcc5",
+              "name": "A map of ISO 4217 currency codes to currency names.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/list",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "list"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"currencies\": {\n    \"nisi_6c\": \"<string>\",\n    \"dolor_2\": \"<string>\"\n  },\n  \"terms\": \"<uri>\",\n  \"privacy\": \"<uri>\"\n}",
+              "createdAt": "2026-07-28T01:29:08.000Z",
+              "updatedAt": "2026-07-28T01:29:08.000Z",
+              "uid": "35240-6902b229-c16b-4308-8a25-46565534dcc5"
+            },
+            {
+              "id": "9ae5b623-1774-4aad-9b93-479fea88e986",
+              "name": "Missing or invalid `apikey` / `access_key`.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/list",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "list"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"info\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:29:08.000Z",
+              "updatedAt": "2026-07-28T01:29:08.000Z",
+              "uid": "35240-9ae5b623-1774-4aad-9b93-479fea88e986"
+            },
+            {
+              "id": "eb12e0e2-dd24-4ddc-81ab-633ebf660a62",
+              "name": "Monthly request quota exhausted or per-minute rate limit hit.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/list",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "list"
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"info\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:29:08.000Z",
+              "updatedAt": "2026-07-28T01:29:08.000Z",
+              "uid": "35240-eb12e0e2-dd24-4ddc-81ab-633ebf660a62"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:08.000Z",
+          "updatedAt": "2026-07-28T01:29:08.000Z",
+          "uid": "35240-176c5528-0c70-49e3-a00d-421f16babd7d"
+        }
+      ],
+      "id": "1fbe28bf-3415-4f58-9d94-1b9a2e2c7ef3",
+      "createdAt": "2026-07-28T01:29:08.000Z",
+      "updatedAt": "2026-07-28T01:29:08.000Z",
+      "uid": "35240-1fbe28bf-3415-4f58-9d94-1b9a2e2c7ef3"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.apilayer.com/currency_data"
+    }
+  ]
+}
