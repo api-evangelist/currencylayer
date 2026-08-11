@@ -413,6 +413,8 @@ apis:
   - type: CodeExamples
     url: https://github.com/apilayer/currency-conversion
 common:
+  - type: IssueTracker
+    url: https://github.com/apilayer/currencylayer-API/issues
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/currencylayer/overview
   - type: AgenticAccess
