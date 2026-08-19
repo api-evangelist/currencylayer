@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Currencylayer Change Rates API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Live Exchange Rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apilayer.com/currency_data/live",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free\nplan; any source currency may be selected on Basic plan and above.\n"
+              },
+              {
+                "name": "currencies",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of ISO 4217 currency codes to limit the result set."
+              }
+            ]
+          },
+          "docs": "Returns the most recent exchange rate data. Rates refresh every 60 minutes\non Free and Basic, every 10 minutes on Professional, and every 60 seconds\non Enterprise and above.\n"
+        },
+        {
+          "info": {
+            "name": "Get Historical Exchange Rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apilayer.com/currency_data/historical",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "ISO-8601 date in `YYYY-MM-DD` format (any working day since 1999)."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free\nplan; any source currency may be selected on Basic plan and above.\n"
+              },
+              {
+                "name": "currencies",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of ISO 4217 currency codes to limit the result set."
+              }
+            ]
+          },
+          "docs": "Returns end-of-day historical exchange rates for any date since 1999.\nAvailable on every plan including Free.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

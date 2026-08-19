@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Currencylayer Change API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Change",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Currency Change Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apilayer.com/currency_data/change",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the change window (YYYY-MM-DD). Defaults to yesterday."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date for the change window (YYYY-MM-DD). Defaults to today."
+              },
+              {
+                "name": "currencies",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated ISO 4217 currency codes to report on."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free\nplan; any source currency may be selected on Basic plan and above.\n"
+              }
+            ]
+          },
+          "docs": "Returns currency change parameters (start rate, end rate, absolute change,\npercentage change) between two dates for any supported currency pair.\nAvailable on Enterprise Plus plan and above.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

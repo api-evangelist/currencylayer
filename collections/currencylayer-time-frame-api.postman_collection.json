@@ -1,0 +1,349 @@
+{
+  "item": [
+    {
+      "id": "b488f684-eae0-47bb-9866-dc58fa3d7c3d",
+      "name": "Time Frame",
+      "description": {
+        "content": "Daily historical rates between two dates.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "155710bf-b0bc-4c37-a2e0-20b07129f453",
+          "name": "Get Time-Frame Exchange Rates",
+          "request": {
+            "name": "Get Time-Frame Exchange Rates",
+            "description": {
+              "content": "Returns daily historical exchange rates between two dates of your choice,\nwith a maximum range of 365 days. Available on Enterprise plan and above.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "timeframe"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) Start date for the time-frame window (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) End date for the time-frame window (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free\nplan; any source currency may be selected on Basic plan and above.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "currencies",
+                  "value": "<string>",
+                  "description": "Comma-separated list of ISO 4217 currency codes to limit the result set."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2953e054-3337-41e7-981c-7a383752756e",
+              "name": "Map of dates to daily rates for the requested window.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeframe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "2010-03-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2010-04-01"
+                    },
+                    {
+                      "key": "source",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "currencies",
+                      "value": "AUD,CHF,EUR,GBP,PLN"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"timeframe\": true,\n  \"start_date\": \"2010-03-01\",\n  \"end_date\": \"2010-04-01\",\n  \"source\": \"USD\",\n  \"quotes\": {\n    \"2010-03-01\": {\n      \"USDUSD\": 1,\n      \"USDGBP\": 0.668525,\n      \"USDEUR\": 0.738541\n    },\n    \"2010-03-02\": {\n      \"USDUSD\": 1,\n      \"USDGBP\": 0.668827,\n      \"USDEUR\": 0.736145\n    }\n  },\n  \"terms\": \"https://currencylayer.com/terms\",\n  \"privacy\": \"https://currencylayer.com/privacy\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bbbae262-825d-4032-b424-769fb40099e9",
+              "name": "Missing or invalid `apikey` / `access_key`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeframe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "2010-03-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2010-04-01"
+                    },
+                    {
+                      "key": "source",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "currencies",
+                      "value": "AUD,CHF,EUR,GBP,PLN"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": 104,\n    \"type\": \"monthly_usage_limit_reached\",\n    \"info\": \"Your monthly API request volume has been reached. Please upgrade your Subscription Plan.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a3bbd81-abaf-4c5b-bbf4-b92ad9588a66",
+              "name": "The requested feature is not included in the current subscription plan.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeframe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "2010-03-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2010-04-01"
+                    },
+                    {
+                      "key": "source",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "currencies",
+                      "value": "AUD,CHF,EUR,GBP,PLN"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": 104,\n    \"type\": \"monthly_usage_limit_reached\",\n    \"info\": \"Your monthly API request volume has been reached. Please upgrade your Subscription Plan.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed37f83c-8756-4085-a5a9-171e11ad2a8f",
+              "name": "Monthly request quota exhausted or per-minute rate limit hit.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeframe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "2010-03-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2010-04-01"
+                    },
+                    {
+                      "key": "source",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "currencies",
+                      "value": "AUD,CHF,EUR,GBP,PLN"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": 104,\n    \"type\": \"monthly_usage_limit_reached\",\n    \"info\": \"Your monthly API request volume has been reached. Please upgrade your Subscription Plan.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apilayer.com/currency_data",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e426cdb1-b72e-4b59-b6c7-52c292652268",
+    "name": "Currencylayer Change Time Frame API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Currencylayer is a real-time and historical foreign exchange rate JSON API\ndelivering bank-grade exchange rate data for 168 world currencies and precious\nmetals, sourced from 15+ commercial-grade providers. The API is delivered via\nthe APILayer marketplace and the legacy `apilayer.net` endpoint.\n\nAuthentication uses the `access_key` query parameter on the legacy endpoint and\nthe `apikey` HTTP header on the APILayer marketplace endpoint. The Free plan is\nlimited to 100 requests per month and is HTTP-only with USD base; HTTPS,\narbitrary base currency switching, and the `/convert` endpoint unlock on the\nBasic plan and above. The `/timeframe` endpoint requires the Enterprise plan\nand `/change` requires Enterprise Plus.\n\n\nContact Support:\n Name: Currencylayer Support",
+      "type": "text/plain"
+    }
+  }
+}
