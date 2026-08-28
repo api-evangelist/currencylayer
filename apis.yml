@@ -6,6 +6,19 @@ description: >-
   through the APILayer marketplace under a freemium subscription model with refresh cadence ranging from hourly on Free
   up to 60 seconds on Enterprise tiers.
 url: https://currencylayer.com
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
