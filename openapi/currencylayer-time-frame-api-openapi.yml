@@ -1,28 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Currencylayer Change Time Frame API
+  title: Currencylayer Time Frame API
   description: 'Currencylayer is a real-time and historical foreign exchange rate JSON API
 
     delivering bank-grade exchange rate data for 168 world currencies and precious
 
-    metals, sourced from 15+ commercial-grade providers. The API is delivered via
-
-    the APILayer marketplace and the legacy `apilayer.net` endpoint.
-
-
-    Authentication uses the `access_key` query parameter on the legacy endpoint and
-
-    the `apikey` HTTP header on the APILayer marketplace endpoint. The Free plan is
-
-    limited to 100 requests per month and is HTTP-only with USD base; HTTPS,
-
-    arbitrary base currency switching, and the `/convert` endpoint unlock on the
-
-    Basic plan and above. The `/timeframe` endpoint requires the Enterprise plan
-
-    and `/change` requires Enterprise Plus.
-
-    '
+    metals, sourced from 15+ commercial-grade providers.'
   version: 1.0.0
   contact:
     name: Currencylayer Support
@@ -53,9 +36,7 @@ paths:
       summary: Get Time-Frame Exchange Rates
       description: 'Returns daily historical exchange rates between two dates of your choice,
 
-        with a maximum range of 365 days. Available on Enterprise plan and above.
-
-        '
+        with a maximum range of 365 days. Available on Enterprise plan and above.'
       tags:
       - Time Frame
       parameters:
@@ -91,26 +72,29 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
-  responses:
-    Forbidden:
-      description: The requested feature is not included in the current subscription plan.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Missing or invalid `apikey` / `access_key`.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    RateLimited:
-      description: Monthly request quota exhausted or per-minute rate limit hit.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - success
+      - error
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              example: 104
+              description: "Currencylayer error code. Known codes:\n  101 — Missing or invalid Access Key\n  103 — Non-existent API Function requested\n  104 — Monthly request allowance exceeded\n  105 — Requested function unavailable under current plan\n  106 — Query returned no results\n  404 — Requested resource does not exist\n"
+            type:
+              type: string
+              example: monthly_usage_limit_reached
+            info:
+              type: string
+              example: Your monthly API request volume has been reached. Please upgrade your Subscription Plan.
     TimeFrameResponse:
       type: object
       required:
@@ -162,29 +146,34 @@ components:
               USDUSD: 1
               USDGBP: 0.668827
               USDEUR: 0.736145
-    ErrorResponse:
-      type: object
-      required:
-      - success
-      - error
-      properties:
-        success:
-          type: boolean
-          example: false
-        error:
-          type: object
-          properties:
-            code:
-              type: integer
-              example: 104
-              description: "Currencylayer error code. Known codes:\n  101 — Missing or invalid Access Key\n  103 — Non-existent API Function requested\n  104 — Monthly request allowance exceeded\n  105 — Requested function unavailable under current plan\n  106 — Query returned no results\n  404 — Requested resource does not exist\n"
-            type:
-              type: string
-              example: monthly_usage_limit_reached
-            info:
-              type: string
-              example: Your monthly API request volume has been reached. Please upgrade your Subscription Plan.
+  responses:
+    Forbidden:
+      description: The requested feature is not included in the current subscription plan.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Missing or invalid `apikey` / `access_key`.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    RateLimited:
+      description: Monthly request quota exhausted or per-minute rate limit hit.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
+    Currencies:
+      name: currencies
+      in: query
+      required: false
+      description: Comma-separated list of ISO 4217 currency codes to limit the result set.
+      schema:
+        type: string
+        example: AUD,CHF,EUR,GBP,PLN
     Source:
       name: source
       in: query
@@ -197,14 +186,6 @@ components:
       schema:
         type: string
         example: USD
-    Currencies:
-      name: currencies
-      in: query
-      required: false
-      description: Comma-separated list of ISO 4217 currency codes to limit the result set.
-      schema:
-        type: string
-        example: AUD,CHF,EUR,GBP,PLN
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
