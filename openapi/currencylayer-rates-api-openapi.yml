@@ -89,29 +89,28 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
+  parameters:
+    Source:
+      name: source
+      in: query
+      required: false
+      description: 'Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free
+
+        plan; any source currency may be selected on Basic plan and above.
+
+        '
+      schema:
+        type: string
+        example: USD
+    Currencies:
+      name: currencies
+      in: query
+      required: false
+      description: Comma-separated list of ISO 4217 currency codes to limit the result set.
+      schema:
+        type: string
+        example: AUD,CHF,EUR,GBP,PLN
   schemas:
-    ErrorResponse:
-      type: object
-      required:
-      - success
-      - error
-      properties:
-        success:
-          type: boolean
-          example: false
-        error:
-          type: object
-          properties:
-            code:
-              type: integer
-              example: 104
-              description: "Currencylayer error code. Known codes:\n  101 — Missing or invalid Access Key\n  103 — Non-existent API Function requested\n  104 — Monthly request allowance exceeded\n  105 — Requested function unavailable under current plan\n  106 — Query returned no results\n  404 — Requested resource does not exist\n"
-            type:
-              type: string
-              example: monthly_usage_limit_reached
-            info:
-              type: string
-              example: Your monthly API request volume has been reached. Please upgrade your Subscription Plan.
     QuotesResponse:
       type: object
       required:
@@ -160,15 +159,31 @@ components:
             USDEUR: 0.919677
             USDGBP: 0.658443
             USDPLN: 3.713873
+    ErrorResponse:
+      type: object
+      required:
+      - success
+      - error
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              example: 104
+              description: "Currencylayer error code. Known codes:\n  101 — Missing or invalid Access Key\n  103 — Non-existent API Function requested\n  104 — Monthly request allowance exceeded\n  105 — Requested function unavailable under current plan\n  106 — Query returned no results\n  404 — Requested resource does not exist\n"
+            type:
+              type: string
+              example: monthly_usage_limit_reached
+            info:
+              type: string
+              example: Your monthly API request volume has been reached. Please upgrade your Subscription Plan.
   responses:
     Unauthorized:
       description: Missing or invalid `apikey` / `access_key`.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    RateLimited:
-      description: Monthly request quota exhausted or per-minute rate limit hit.
       content:
         application/json:
           schema:
@@ -179,27 +194,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    Currencies:
-      name: currencies
-      in: query
-      required: false
-      description: Comma-separated list of ISO 4217 currency codes to limit the result set.
-      schema:
-        type: string
-        example: AUD,CHF,EUR,GBP,PLN
-    Source:
-      name: source
-      in: query
-      required: false
-      description: 'Three-letter ISO 4217 source/base currency code. Defaults to USD on the Free
-
-        plan; any source currency may be selected on Basic plan and above.
-
-        '
-      schema:
-        type: string
-        example: USD
+    RateLimited:
+      description: Monthly request quota exhausted or per-minute rate limit hit.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
