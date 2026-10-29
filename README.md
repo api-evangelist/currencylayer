@@ -1,4 +1,4 @@
-# Currencylayer (currencylayer)
+# Currencylayer
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,107 +66,187 @@
 
 Currencylayer is a real-time and historical foreign exchange rate JSON API delivering bank-grade exchange rate data for 168 world currencies and precious metals, sourced from 15+ commercial-grade providers. The service is delivered through the APILayer marketplace under a freemium subscription model with refresh cadence ranging from hourly on Free up to 60 seconds on Enterprise tiers.
 
-**APIs.json:** [https://currencylayer.com](https://currencylayer.com)
+**Areas:** Foreign Exchange · Conversion · Historical Rates · Time Frame · Change Report · Precious Metals · APILayer · Public APIs
 
-## Tags
+## Currencylayer on APIs.io
 
-- Currency Exchange
-- Foreign Exchange
-- FX
-- Forex
-- Conversion
-- Historical Rates
-- Time Frame
-- Change Report
-- Precious Metals
-- APILayer
-- Public APIs
+Everything profiled for Currencylayer is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/currencylayer/](https://apis.io/providers/currencylayer/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (5)
 
-- **Created:** 2026-05-28
-- **Modified:** 2026-05-29
+- [Currencylayer Change API](https://apis.io/apis/currencylayer/currencylayer-change-api/) — Currency change (margin and percentage) analysis between two dates.
+- [Currencylayer Conversion API](https://apis.io/apis/currencylayer/currencylayer-conversion-api/) — On-demand currency amount conversion.
+- [Currencylayer Rates API](https://apis.io/apis/currencylayer/currencylayer-rates-api/) — Real-time and historical foreign exchange rate operations.
+- [Currencylayer Symbols API](https://apis.io/apis/currencylayer/currencylayer-symbols-api/) — Discovery of supported currency symbols.
+- [Currencylayer Time Frame API](https://apis.io/apis/currencylayer/currencylayer-time-frame-api/) — Daily historical rates between two dates.
 
-## APIs
+### Published properties
 
-### Currencylayer API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-The Currencylayer REST API exposes six operations covering currency symbol discovery, real-time and historical rates, on-demand currency conversion, daily time-frame windows, and change reporting. Authentication is via the APILayer `apikey` header on the modern endpoint or the legacy `access_key` query parameter.
+#### Agentic access (1)
 
-- **Human URL:** [https://currencylayer.com/documentation](https://currencylayer.com/documentation)
-- **Base URL:** `https://api.apilayer.com/currency_data`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Currencylayer Agentic Access](https://apis.io/agentic-access/currencylayer/currencylayer-agentic-access/)
 
-- Currency Exchange
-- Foreign Exchange
-- APILayer
+#### JSON Schema (6)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://docs.apilayer.com/currencylayer/docs/api-documentation)
-- [API Reference](https://apilayer.com/marketplace/currency_data-api)
-- [Quickstart](https://docs.apilayer.com/currencylayer/docs/getting-started)
-- [Authentication](https://docs.apilayer.com/currencylayer/docs/getting-started)
-- [OpenAPI](openapi/currencylayer-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/currencylayer.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/currencylayer.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/currencylayer-quotes-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/currencylayer-currencies-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/currencylayer-convert-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/currencylayer-timeframe-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/currencylayer-change-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/currencylayer-error-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/currencylayer-quotes-structure.json)
-- [JSON Structure](json-structure/currencylayer-currencies-structure.json)
-- [JSON Structure](json-structure/currencylayer-convert-structure.json)
-- [JSON Structure](json-structure/currencylayer-timeframe-structure.json)
-- [JSON Structure](json-structure/currencylayer-change-structure.json)
-- [J S O N- L D](json-ld/currencylayer-context.jsonld)
-- [Example](examples/currencylayer-listcurrencies-example.json)
-- [Example](examples/currencylayer-getlive-example.json)
-- [Example](examples/currencylayer-gethistorical-example.json)
-- [Example](examples/currencylayer-convertcurrency-example.json)
-- [Example](examples/currencylayer-gettimeframe-example.json)
-- [Example](examples/currencylayer-getchange-example.json)
-- [Rate Limits](rate-limits/currencylayer-rate-limits.yml)
-- [Pricing](plans/currencylayer-plans-pricing.yml)
-- [SDK](https://github.com/said-ali/currencylayer)
-- [SDK](https://github.com/phlegx/money-currencylayer-bank)
-- [SDK](https://github.com/orkhanahmadov/laravel-currencylayer)
-- [SDK](https://github.com/keymusicman/CurrencyLayer4NET)
-- [SDK](https://github.com/jfayad/currencylayer)
-- [Code Examples](https://github.com/apilayer/currencylayer-API)
-- [Code Examples](https://github.com/apilayer/currency-converter-app)
-- [Code Examples](https://github.com/apilayer/currency-conversion)
+- [Currencylayer Change Response](https://apis.io/schemas/currencylayer/currencylayer-change/)
+- [Currencylayer Convert Response](https://apis.io/schemas/currencylayer/currencylayer-convert/)
+- [Currencylayer Currencies Response](https://apis.io/schemas/currencylayer/currencylayer-currencies/)
+- [Currencylayer Error Response](https://apis.io/schemas/currencylayer/currencylayer-error/)
+- [Currencylayer Quotes Response](https://apis.io/schemas/currencylayer/currencylayer-quotes/)
+- [Currencylayer Time-Frame Response](https://apis.io/schemas/currencylayer/currencylayer-timeframe/)
 
-## Common Properties
+#### JSON Structure (5)
+
+Data models expressed in JSON Structure.
+
+- [Currencylayer Change Structure](https://apis.io/json-structure/currencylayer/currencylayer-change-structure/)
+- [Currencylayer Convert Structure](https://apis.io/json-structure/currencylayer/currencylayer-convert-structure/)
+- [Currencylayer Currencies Structure](https://apis.io/json-structure/currencylayer/currencylayer-currencies-structure/)
+- [Currencylayer Quotes Structure](https://apis.io/json-structure/currencylayer/currencylayer-quotes-structure/)
+- [Currencylayer Timeframe Structure](https://apis.io/json-structure/currencylayer/currencylayer-timeframe-structure/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Currencylayer Context](https://apis.io/jsonld/currencylayer/currencylayer-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Currencylayer Vocabulary](https://apis.io/vocabularies/currencylayer/currencylayer-vocabulary/)
+
+#### Examples (6)
+
+Example requests and responses.
+
+- [Currencylayer Convertcurrency Example](https://apis.io/examples/currencylayer/currencylayer-convertcurrency-example/)
+- [Currencylayer Getchange Example](https://apis.io/examples/currencylayer/currencylayer-getchange-example/)
+- [Currencylayer Gethistorical Example](https://apis.io/examples/currencylayer/currencylayer-gethistorical-example/)
+- [Currencylayer Getlive Example](https://apis.io/examples/currencylayer/currencylayer-getlive-example/)
+- [Currencylayer Gettimeframe Example](https://apis.io/examples/currencylayer/currencylayer-gettimeframe-example/)
+- [Currencylayer Listcurrencies Example](https://apis.io/examples/currencylayer/currencylayer-listcurrencies-example/)
+
+#### Collections (11)
+
+Postman and Open Collection request collections.
+
+- [Currencylayer API](https://apis.io/collections/currencylayer/open-currencylayer/)
+- [Currencylayer Change API](https://apis.io/collections/currencylayer/open-currencylayer-change-api/)
+- [Currencylayer Change Conversion API](https://apis.io/collections/currencylayer/open-currencylayer-conversion-api/)
+- [Currencylayer Change Rates API](https://apis.io/collections/currencylayer/open-currencylayer-rates-api/)
+- [Currencylayer Change Symbols API](https://apis.io/collections/currencylayer/open-currencylayer-symbols-api/)
+- [Currencylayer Change Time Frame API](https://apis.io/collections/currencylayer/open-currencylayer-time-frame-api/)
+- [Currencylayer Change API](https://apis.io/collections/currencylayer/postman-currencylayer-change-api/)
+- [Currencylayer Change Conversion API](https://apis.io/collections/currencylayer/postman-currencylayer-conversion-api/)
+- [Currencylayer Change Rates API](https://apis.io/collections/currencylayer/postman-currencylayer-rates-api/)
+- [Currencylayer Change Symbols API](https://apis.io/collections/currencylayer/postman-currencylayer-symbols-api/)
+- [Currencylayer Change Time Frame API](https://apis.io/collections/currencylayer/postman-currencylayer-time-frame-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Currencylayer — jsonschema rules](https://apis.io/rules/currencylayer/currencylayer-jsonschema-spectral-rules/)
+- [Currencylayer API Rules](https://apis.io/rules/currencylayer/currencylayer-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Currencylayer Authentication](https://apis.io/security/currencylayer/currencylayer-authentication/)
+- [Currencylayer Domain Security](https://apis.io/security/currencylayer/currencylayer-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Currencylayer Plans Pricing](https://apis.io/plans/currencylayer/currencylayer-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Currencylayer Rate Limits](https://apis.io/rate-limits/currencylayer/currencylayer-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Currencylayer Finops](https://apis.io/finops/currencylayer/currencylayer-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://currencylayer.com)
 - [Documentation](https://docs.apilayer.com/currencylayer/docs/api-documentation)
-- [API Reference](https://apilayer.com/marketplace/currency_data-api)
+- [API reference](https://apilayer.com/marketplace/currency_data-api)
 - [Pricing](https://currencylayer.com/product)
-- [Sign Up](https://apilayer.com/signup)
-- [Login](https://apilayer.com/login)
-- [Terms of Service](https://currencylayer.com/terms)
-- [Privacy Policy](https://currencylayer.com/privacy)
 - [Support](https://currencylayer.com/contact)
 - [Blog](https://blog.apilayer.com/)
-- [GitHub Organization](https://github.com/apilayer)
-- [GitHub Repository](https://github.com/apilayer/currencylayer-API)
-- [Public APIs Listing](https://github.com/public-apis/public-apis)
-- [Spectral Rules](rules/currencylayer-rules.yml)
-- [Vocabulary](vocabulary/currencylayer-vocabulary.yml)
-- [Plans](plans/currencylayer-plans-pricing.yml)
-- [Rate Limits](rate-limits/currencylayer-rate-limits.yml)
-- [Fin Ops](finops/currencylayer-finops.yml)
-- [Tools](https://blog.apilayer.com/how-to-turn-any-rest-api-into-an-mcp-server-for-claude-complete-2026-pillar-guide/)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [Solutions](undefined)
+- [Terms of service](https://currencylayer.com/terms)
+- [Privacy policy](https://currencylayer.com/privacy)
+- [GitHub](https://github.com/apilayer)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 50.7** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 65.3 |
+| Contract governance | 27.3 |
+| Operational transparency | 2.6 |
+| Developer ergonomics | 64.3 |
+| Access clarity | 46.1 |
+
+**Agent readiness 24.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | — |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/currencylayer/](https://apis.io/providers/currencylayer/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Currencylayer: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/currencylayer/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
